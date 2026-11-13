@@ -24,53 +24,53 @@
 ### Project setup
 
 - [x] Create private GitHub repository `sketch-space`
-- [ ] Scaffold Next.js 15 + TypeScript + Tailwind CSS
-- [ ] Install dependencies with npm: `fabric`, `zustand`, `next-themes`, `lz-string`, `nanoid`, `lucide-react`
-- [ ] Commit `package-lock.json` so installs are reproducible
-- [ ] Create the folder structure from plan.md (`components/`, `hooks/`, `lib/fabric/`, `stores/`, `types/`, `docs/`)
-- [ ] Create base component files: `TopBar`, `Toolbar`, `Sidebar`, `StylePanel`, dialogs and UI primitives
-- [ ] Create `lib/constants.ts` with violet accent, stroke widths, zoom limits (10%–3000%) and storage key `sketchspace:drawing:v1`
-- [ ] Use `lucide-react` icons in the top bar, toolbar and sidebar
-- [ ] Remove starter/demo content from the scaffold
-- [ ] Set page metadata: title and description = SketchSpace
-- [ ] Load Inter (UI) and Patrick Hand (text tool) with `next/font`
-- [ ] Define violet accent (`#6965db`) and light/dark theme tokens in `globals.css`
+- [x] Scaffold Next.js 15 + TypeScript + Tailwind CSS
+- [x] Install dependencies with npm: `fabric`, `zustand`, `next-themes`, `lz-string`, `nanoid`, `lucide-react`
+- [x] Commit `package-lock.json` so installs are reproducible
+- [x] Create the folder structure from plan.md (`components/`, `hooks/`, `lib/fabric/`, `stores/`, `types/`, `docs/`)
+- [x] Create base component files: `TopBar`, `Toolbar`, `Sidebar`, `StylePanel`, dialogs and UI primitives
+- [x] Create `lib/constants.ts` with violet accent, stroke widths, zoom limits (10%–3000%) and storage key `sketchspace:drawing:v1`
+- [x] Use `lucide-react` icons in the top bar, toolbar and sidebar
+- [x] Remove starter/demo content from the scaffold
+- [x] Set page metadata: title and description = SketchSpace
+- [x] Load Inter (UI) and Patrick Hand (text tool) with `next/font`
+- [x] Define violet accent (`#6965db`) and light/dark theme tokens in `globals.css`
 - [x] Add `.gitignore` and confirm no secrets are tracked
-- [ ] First commit: `chore: scaffold Next.js + TypeScript + Tailwind`
+- [x] First commit: `chore: scaffold Next.js + TypeScript + Tailwind`
 
 ### App shell
 
-- [ ] Full-screen app layout with no page scrollbar
-- [ ] Top bar skeleton (hamburger, name, undo/redo, zoom, share)
-- [ ] Floating toolbar skeleton at bottom-centre
-- [ ] Style panel shell on the left
-- [ ] Slide-in sidebar skeleton from the left with hamburger toggle
-- [ ] Sidebar opens and closes smoothly
-- [ ] Add `Button`, `IconButton` and `Tooltip` UI primitives
-- [ ] Add violet S monogram favicon (`app/icon.svg`)
+- [x] Full-screen app layout with no page scrollbar
+- [x] Top bar skeleton (hamburger, name, undo/redo, zoom, share)
+- [x] Floating toolbar skeleton at bottom-centre
+- [x] Style panel shell on the left
+- [x] Slide-in sidebar skeleton from the left with hamburger toggle
+- [x] Sidebar opens and closes smoothly
+- [x] Add `Button`, `IconButton` and `Tooltip` UI primitives
+- [x] Add violet S monogram favicon (`app/icon.svg`)
 
 ### Canvas
 
-- [ ] Create client-only Fabric canvas component with `dynamic(..., { ssr: false })`
-- [ ] Initialize `fabric.Canvas` on the `<canvas>` element
-- [ ] Resize canvas when the window resizes
-- [ ] Dispose canvas cleanly on unmount
-- [ ] Plain background: light `#ffffff`, dark `#121212`
-- [ ] Pan with the Hand tool
-- [ ] Pan with Space + drag
-- [ ] Pan with scroll / trackpad
-- [ ] Zoom with Ctrl + scroll
-- [ ] Zoom centred on the mouse pointer (`zoomToPoint`)
-- [ ] Zoom in / out / reset buttons
-- [ ] Clamp zoom between 10% and 3000%
-- [ ] Show current zoom percentage in the top bar
-- [ ] Violet selection colour and active-tool highlight
-- [ ] Test pan and zoom with 100+ temporary shapes (performance check)
+- [x] Create client-only Fabric canvas component with `dynamic(..., { ssr: false })`
+- [x] Initialize `fabric.Canvas` on the `<canvas>` element
+- [x] Resize canvas when the window resizes
+- [x] Dispose canvas cleanly on unmount
+- [x] Plain background: light `#ffffff`, dark `#121212`
+- [x] Pan with the Hand tool
+- [x] Pan with Space + drag
+- [x] Pan with scroll / trackpad
+- [x] Zoom with Ctrl + scroll
+- [x] Zoom centred on the mouse pointer (`zoomToPoint`)
+- [x] Zoom in / out / reset buttons
+- [x] Clamp zoom between 10% and 3000%
+- [x] Show current zoom percentage in the top bar
+- [x] Violet selection colour and active-tool highlight
+- [x] Test pan and zoom with 100+ temporary shapes (performance check)
 
 ### Ship Day 1
 
-- [ ] Commit: `feat: add infinite canvas with pan and zoom`
-- [ ] Push to GitHub
+- [x] Commit: `feat: add infinite canvas with pan and zoom`
+- [x] Push to GitHub
 - [ ] Import repo into Vercel and deploy
 - [ ] Open the live link and test pan/zoom again
 
@@ -216,8 +216,8 @@
 
 ### Reset
 
-- [ ] Reset Canvas opens an "Are you sure?" confirm dialog
-- [ ] Confirm clears all objects
+- [x] Reset Canvas opens an "Are you sure?" confirm dialog
+- [x] Confirm clears all objects
 - [ ] Confirm clears the autosave
 - [ ] Cancel leaves the drawing untouched
 
@@ -259,21 +259,21 @@
 
 ### Theme
 
-- [ ] `next-themes` provider with `defaultTheme="light"`
-- [ ] `suppressHydrationWarning` on `<html>`
-- [ ] Theme toggle in the sidebar
-- [ ] Theme choice persists after refresh
-- [ ] Canvas background follows the theme
+- [x] `next-themes` provider with `defaultTheme="light"`
+- [x] `suppressHydrationWarning` on `<html>`
+- [x] Theme toggle in the sidebar
+- [x] Theme choice persists after refresh
+- [x] Canvas background follows the theme
 - [ ] New shapes use white stroke in dark mode and black in light mode
 - [ ] Existing shapes keep their colour when the theme changes
-- [ ] Accent stays violet in both themes
-- [ ] Check there is no white flash on reload in dark mode
+- [x] Accent stays violet in both themes
+- [x] Check there is no white flash on reload in dark mode
 
 ### Help
 
-- [ ] Help / Guide dialog with short instructions
-- [ ] Full keyboard shortcut table inside Help
-- [ ] Dialog opens from the sidebar and closes with Escape
+- [x] Help / Guide dialog with short instructions
+- [x] Full keyboard shortcut table inside Help
+- [x] Dialog opens from the sidebar and closes with Escape
 
 ### Bonuses
 
@@ -358,8 +358,8 @@
 
 - [ ] Save JSON and reopen it
 - [ ] Autosave survives refresh
-- [ ] Reset asks for confirmation
-- [ ] Reset cancel does nothing
+- [x] Reset asks for confirmation
+- [x] Reset cancel does nothing
 - [ ] Export PNG with background ON
 - [ ] Export PNG with background OFF
 - [ ] Export JPEG
@@ -451,8 +451,8 @@
 - [ ] Export PNG, JPEG and SVG with and without background at 1x / 2x / 3x
 - [ ] Share link opens the same drawing in a new tab
 - [ ] Dark mode persists after refresh with no flash
-- [ ] Reset asks for confirmation first
-- [ ] Help lists all keyboard shortcuts
+- [x] Reset asks for confirmation first
+- [x] Help lists all keyboard shortcuts
 - [ ] Real phone: pan, pinch zoom and draw work
 - [ ] No console errors
 - [ ] All PDF submission items ticked

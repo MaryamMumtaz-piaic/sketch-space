@@ -1,0 +1,188 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  --background: #ffffff;
+  --foreground: #1b1b1f;
+  --canvas: #ffffff;
+  --surface: rgba(255, 255, 255, 0.94);
+  --surface-solid: #ffffff;
+  --line: #e6e6ec;
+  --muted: #6f6f7c;
+  --accent: #6965db;
+  --accent-soft: rgba(105, 101, 219, 0.1);
+  --island-shadow: 0 1px 2px rgba(20, 20, 40, 0.06),
+    0 8px 24px rgba(20, 20, 40, 0.08);
+}
+
+.dark {
+  --background: #121212;
+  --foreground: #ececf1;
+  --canvas: #121212;
+  --surface: rgba(35, 35, 42, 0.94);
+  --surface-solid: #232329;
+  --line: #34343e;
+  --muted: #9b9baa;
+  --accent: #6965db;
+  --accent-soft: rgba(105, 101, 219, 0.18);
+  --island-shadow: 0 1px 2px rgba(0, 0, 0, 0.35),
+    0 10px 30px rgba(0, 0, 0, 0.35);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-canvas: var(--canvas);
+  --color-surface: var(--surface);
+  --color-surface-solid: var(--surface-solid);
+  --color-line: var(--line);
+  --color-muted: var(--muted);
+  --color-accent: var(--accent);
+  --color-accent-soft: var(--accent-soft);
+  --shadow-island: var(--island-shadow);
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-hand: var(--font-patrick-hand), "Comic Sans MS", cursive;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+html {
+  overflow: hidden;
+}
+
+body {
+  margin: 0;
+  overflow: hidden;
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+button {
+  cursor: pointer;
+  font: inherit;
+}
+
+button:disabled {
+  cursor: not-allowed;
+}
+
+::selection {
+  background: rgba(105, 101, 219, 0.24);
+}
+
+/* Fabric renders its own wrapper; make it fill the stage exactly. */
+.sketch-canvas {
+  position: absolute;
+  inset: 0;
+  touch-action: none;
+}
+
+.sketch-canvas .canvas-container {
+  position: absolute !important;
+  inset: 0;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.sketch-canvas canvas {
+  display: block;
+}
+
+.scrollbar-none {
+  scrollbar-width: none;
+}
+
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+
+.sidebar-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: var(--line) transparent;
+}
+
+.sidebar-scroll::-webkit-scrollbar {
+  width: 8px;
+}
+
+.sidebar-scroll::-webkit-scrollbar-thumb {
+  border-radius: 999px;
+  background: var(--line);
+}
+
+/* Opacity slider tuned for both themes. */
+input[type="range"].opacity-slider {
+  width: 100%;
+  height: 4px;
+  border-radius: 999px;
+  appearance: none;
+  background: var(--line);
+  outline: none;
+}
+
+input[type="range"].opacity-slider::-webkit-slider-thumb {
+  width: 14px;
+  height: 14px;
+  border: 2px solid #ffffff;
+  border-radius: 999px;
+  appearance: none;
+  background: var(--accent);
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.08);
+  cursor: pointer;
+}
+
+input[type="range"].opacity-slider::-moz-range-thumb {
+  width: 14px;
+  height: 14px;
+  border: 2px solid #ffffff;
+  border-radius: 999px;
+  background: var(--accent);
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.08);
+  cursor: pointer;
+}
+
+@keyframes dialog-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes dialog-pop {
+  from {
+    opacity: 0;
+    transform: translateY(6px) scale(0.985);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.dialog-backdrop {
+  animation: dialog-fade 150ms ease-out;
+}
+
+.dialog-panel {
+  animation: dialog-pop 180ms ease-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dialog-backdrop,
+  .dialog-panel {
+    animation: none;
+  }
+}

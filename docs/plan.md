@@ -34,7 +34,7 @@
 | Dark mode default | New shapes use **white stroke** on `#121212`; light uses black; existing shapes keep their colour |
 | Text default size | **20px** |
 | Layout | Toolbar **bottom-centre**, style panel **left**, sidebar **left** |
-| Palette | **Excalidraw classic** (black, red, green, blue, orange, violet) + custom picker |
+| Palette | **Excalidraw classic** (black, red, green, blue, orange, violet, white) + custom picker |
 | Export filename | `sketchspace-YYYY-MM-DD` |
 | Export background | Matches the **current theme** when ON |
 | Favicon | **Violet S monogram** (`app/icon.svg`) |
@@ -160,6 +160,9 @@ sketch-space/
 │   │   ├── ToolButton.tsx
 │   │   ├── ShapesPicker.tsx       # rectangle, ellipse, diamond, line, arrow
 │   │   └── StylePanel.tsx         # colours, width, opacity, stroke style
+│   ├── whiteboard/
+│   │   ├── WhiteboardShell.tsx    # full-screen app shell
+│   │   └── ThemeStyleSync.tsx     # dark-mode default stroke
 │   ├── sidebar/
 │   │   ├── Sidebar.tsx            # slide-in main menu
 │   │   └── SidebarItem.tsx
@@ -167,7 +170,7 @@ sketch-space/
 │   │   ├── HelpDialog.tsx         # instructions + shortcuts
 │   │   ├── ConfirmDialog.tsx      # "Are you sure?" for reset
 │   │   └── ExportDialog.tsx       # PNG/SVG, background, scale
-│   └── ui/                        # Button, IconButton, Tooltip, ColorSwatch
+│   └── ui/                        # Button, IconButton, Tooltip, Dialog, Toast, Logo
 ├── hooks/
 │   ├── useKeyboardShortcuts.ts
 │   └── useAutosave.ts
@@ -281,7 +284,7 @@ Each button shows a tooltip with its keyboard shortcut. Arrows can bind to shape
 
 Shown when a drawing tool is active or an object is selected:
 
-- Stroke colour — Excalidraw classic palette (black, red, green, blue, orange, violet) + custom colour input
+- Stroke colour — Excalidraw classic palette (black, red, green, blue, orange, violet, white) + custom colour input
 - Fill colour — same palette, including a transparent / "no fill" option — **solid fills only**
 - Stroke width: thin, medium, thick (1 / 2 / 4 px)
 - Opacity slider
