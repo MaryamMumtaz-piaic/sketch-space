@@ -12,7 +12,7 @@
 ## 0. Before coding
 
 - [x] Read the full task brief (`Day1_task.pdf`)
-- [x] Study excalidraw.com features and write `notes.md`
+- [x] Study excalidraw.com features and write `docs/notes.md`
 - [x] Write `docs/plan.md` with stack and architecture decisions
 - [x] Write `docs/tasks.md` (this checklist)
 - [x] Confirm the 1-week extension with Sami (brief says same-day)

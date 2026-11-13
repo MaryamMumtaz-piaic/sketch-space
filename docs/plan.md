@@ -438,7 +438,7 @@ Vercel redeploys automatically after each push, so the live link stays current.
 
 ## 9. Required workflow order
 
-1. **Study** — read the brief, explore excalidraw.com → `notes.md`
+1. **Study** — read the brief, explore excalidraw.com → `docs/notes.md`
 2. **Plan** — this file → `docs/plan.md`
 3. **Tasks** — small checklist → `docs/tasks.md`
 4. **Implement** — build task by task, tick boxes

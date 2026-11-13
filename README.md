@@ -31,7 +31,7 @@ A real-time interactive whiteboard web app inspired by [Excalidraw](https://exca
 
 - [Project plan](docs/plan.md)
 - [Task checklist](docs/tasks.md)
-- [Study notes](notes.md)
+- [Study notes](docs/notes.md)
 
 ## Live demo
 
