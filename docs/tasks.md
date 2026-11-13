@@ -23,7 +23,7 @@
 
 ### Project setup
 
-- [ ] Create private GitHub repository `sketch-space`
+- [x] Create private GitHub repository `sketch-space`
 - [ ] Scaffold Next.js 15 + TypeScript + Tailwind CSS
 - [ ] Install dependencies with npm: `fabric`, `zustand`, `next-themes`, `lz-string`, `nanoid`, `lucide-react`
 - [ ] Commit `package-lock.json` so installs are reproducible
@@ -35,7 +35,7 @@
 - [ ] Set page metadata: title and description = SketchSpace
 - [ ] Load Inter (UI) and Patrick Hand (text tool) with `next/font`
 - [ ] Define violet accent (`#6965db`) and light/dark theme tokens in `globals.css`
-- [ ] Add `.gitignore` and confirm no secrets are tracked
+- [x] Add `.gitignore` and confirm no secrets are tracked
 - [ ] First commit: `chore: scaffold Next.js + TypeScript + Tailwind`
 
 ### App shell
@@ -396,10 +396,10 @@
 ### Repository files
 
 - [ ] `README.md` with name, description, screenshots, live demo link, features, tech stack, how to run locally and folder structure
-- [ ] `LICENSE` — MIT
-- [ ] Enable Discussions and post one welcome discussion
+- [x] `LICENSE` — MIT
+- [x] Enable Discussions and post one welcome discussion
 - [ ] Repo description, topics (tags) and website link = Vercel URL
-- [ ] Confirm the repository is **private**
+- [x] Confirm the repository is **private**
 - [ ] Confirm `docs/` has `plan.md`, `tasks.md`, `testing-report.md`, `final-report.md`
 - [ ] Review commit history for small, clear messages
 
@@ -407,7 +407,7 @@
 
 - [ ] Final Vercel deployment is live
 - [ ] Test the live link one last time
-- [ ] Invite `muhammadsami987123` as a collaborator
+- [x] Invite `muhammadsami987123` as a collaborator
 - [ ] Tell Sami the invite has been sent
 
 ### Final report
