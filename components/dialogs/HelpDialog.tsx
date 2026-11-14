@@ -22,6 +22,8 @@ const CANVAS_SHORTCUTS = [
   { keys: "Space + drag", label: "Pan the canvas" },
   { keys: "Ctrl + scroll", label: "Zoom to the pointer" },
   { keys: "Scroll", label: "Pan up / down" },
+  { keys: "Delete", label: "Remove the selected objects" },
+  { keys: "Double-click", label: "Edit a text label" },
   { keys: "M", label: "Open or close the menu" },
   { keys: "Esc", label: "Close a dialog or return to selection" },
 ];
@@ -86,9 +88,9 @@ export function HelpDialog() {
         </section>
 
         <p className="rounded-xl border border-line bg-background/50 p-3 text-[11px] leading-relaxed text-muted">
-          <span className="font-semibold text-foreground">Day 1 preview:</span>{" "}
-          pan and zoom are live. Drawing tools, saving, exports and sharing
-          arrive over the next few days.
+          <span className="font-semibold text-foreground">Day 2 preview:</span>{" "}
+          drawing, selection and erasing are live. Styling selected shapes, undo
+          / redo, saving, exports and sharing arrive over the next few days.
         </p>
       </div>
     </Dialog>

@@ -42,25 +42,36 @@ export function StylePanel() {
         <section>
           <p className="mb-2 text-[11px] font-medium text-muted">Eraser mode</p>
           <div className="grid grid-cols-2 gap-1 rounded-lg bg-background/60 p-1 ring-1 ring-line">
-            {(["object", "soft"] as const).map((mode) => (
-              <button
-                key={mode}
-                type="button"
-                aria-pressed={style.eraserMode === mode}
-                onClick={() => setStyle({ eraserMode: mode })}
-                className={cn(
-                  "rounded-md px-2 py-1.5 text-[11px] font-medium capitalize transition-colors",
-                  style.eraserMode === mode
-                    ? "bg-accent text-white shadow-sm"
-                    : "text-foreground/70 hover:bg-accent-soft hover:text-accent",
-                )}
-              >
-                {mode}
-              </button>
-            ))}
+            {(["object", "soft"] as const).map((mode) => {
+              const disabled = mode === "soft";
+              return (
+                <button
+                  key={mode}
+                  type="button"
+                  disabled={disabled}
+                  title={disabled ? "Soft eraser arrives on Day 3" : undefined}
+                  aria-pressed={style.eraserMode === mode}
+                  onClick={() => setStyle({ eraserMode: mode })}
+                  className={cn(
+                    "relative rounded-md px-2 py-1.5 text-[11px] font-medium capitalize transition-colors",
+                    style.eraserMode === mode
+                      ? "bg-accent text-white shadow-sm"
+                      : "text-foreground/70 hover:bg-accent-soft hover:text-accent",
+                    disabled && "cursor-not-allowed opacity-45",
+                  )}
+                >
+                  {mode}
+                  {disabled ? (
+                    <span className="ml-1 text-[8px] font-semibold uppercase tracking-wide opacity-80">
+                      Day 3
+                    </span>
+                  ) : null}
+                </button>
+              );
+            })}
           </div>
           <p className="mt-2 text-[10px] leading-relaxed text-muted">
-            Object mode removes whole shapes. Soft mode erases strokes.
+            Object mode removes whole shapes. Soft erasing lands on Day 3.
           </p>
         </section>
       ) : (

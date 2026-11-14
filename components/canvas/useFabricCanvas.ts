@@ -32,6 +32,25 @@ function clientPoint(event: unknown) {
   };
 }
 
+export interface CanvasInteraction {
+  spaceDown: boolean;
+  panning: boolean;
+}
+
+function applyMode(
+  canvas: Canvas,
+  tool: Tool,
+  spaceDown: boolean,
+  panning: boolean,
+) {
+  const panReady = spaceDown || tool === "hand" || panning;
+  // Pencil is the only tool that draws through Fabric's brush. Everything
+  // else uses our own pointer handlers, so Fabric hit-testing stays off.
+  canvas.isDrawingMode = tool === "pencil" && !panReady;
+  canvas.selection = tool === "select" && !panReady;
+  canvas.skipTargetFind = panReady || tool !== "select";
+}
+
 function applyCursor(
   canvas: Canvas,
   tool: Tool,
@@ -92,7 +111,12 @@ export function useFabricCanvas({
   const spaceRef = useRef(false);
   const pointerRef = useRef(true);
   const onReadyRef = useRef(onReady);
+  const interactionRef = useRef<CanvasInteraction>({
+    spaceDown: false,
+    panning: false,
+  });
   const [spaceDown, setSpaceDown] = useState(false);
+  const [ready, setReady] = useState(false);
 
   useEffect(() => {
     onReadyRef.current = onReady;
@@ -123,6 +147,17 @@ export function useFabricCanvas({
       stopContextMenu: true,
     });
     fabricRef.current = canvas;
+    setReady(true);
+
+    // Never let the browser start a native image drag from the canvas.
+    canvas.upperCanvasEl.draggable = false;
+    const preventNativeDrag = (event: DragEvent) => event.preventDefault();
+    container.addEventListener("dragstart", preventNativeDrag);
+
+    // Dev-only handle so automated tests can inspect the scene.
+    if (process.env.NODE_ENV !== "production") {
+      (window as Window & { __sketchspace?: Canvas }).__sketchspace = canvas;
+    }
 
     const resize = () => {
       const width = Math.max(1, container.clientWidth);
@@ -207,6 +242,7 @@ export function useFabricCanvas({
         lastX: event.x,
         lastY: event.y,
       };
+      interactionRef.current.panning = true;
       canvas.selection = false;
       canvas.skipTargetFind = true;
       applyCursor(canvas, toolRef.current, spaceRef.current, true);
@@ -229,9 +265,8 @@ export function useFabricCanvas({
     const handleMouseUp = () => {
       if (!panRef.current.active) return;
       panRef.current.active = false;
-      canvas.selection = toolRef.current === "select" && !spaceRef.current;
-      canvas.skipTargetFind =
-        toolRef.current === "hand" || spaceRef.current;
+      interactionRef.current.panning = false;
+      applyMode(canvas, toolRef.current, spaceRef.current, false);
       applyCursor(canvas, toolRef.current, spaceRef.current, false);
     };
 
@@ -244,6 +279,7 @@ export function useFabricCanvas({
 
     return () => {
       observer.disconnect();
+      container.removeEventListener("dragstart", preventNativeDrag);
       upperCanvas.removeEventListener("wheel", handleWheel);
       canvas.off("mouse:down", handleMouseDown);
       canvas.off("mouse:move", handleMouseMove);
@@ -252,6 +288,12 @@ export function useFabricCanvas({
       onReadyRef.current?.(null);
       fabricRef.current = null;
       panRef.current.active = false;
+      interactionRef.current = { spaceDown: false, panning: false };
+      setReady(false);
+      if (process.env.NODE_ENV !== "production") {
+        (window as Window & { __sketchspace?: Canvas }).__sketchspace =
+          undefined;
+      }
       void canvas.dispose();
     };
   }, [canvasRef, containerRef, setZoom]);
@@ -325,16 +367,16 @@ export function useFabricCanvas({
     };
   }, []);
 
-  // Selection and cursors follow the active tool / pan modifier.
+  // Selection, pencil mode and cursors follow the active tool / pan modifier.
   useEffect(() => {
     toolRef.current = activeTool;
+    interactionRef.current.spaceDown = spaceDown;
     const canvas = fabricRef.current;
     if (!canvas) return;
 
-    const panReady = activeTool === "hand" || spaceDown;
-    canvas.isDrawingMode = false;
-    canvas.selection = activeTool === "select" && !spaceDown;
-    canvas.skipTargetFind = panReady;
+    applyMode(canvas, activeTool, spaceDown, panRef.current.active);
     applyCursor(canvas, activeTool, spaceDown, panRef.current.active);
   }, [activeTool, spaceDown]);
+
+  return { fabricRef, interactionRef, ready };
 }

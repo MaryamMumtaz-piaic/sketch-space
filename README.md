@@ -2,13 +2,15 @@
 
 A fast, Excalidraw-style infinite whiteboard built with **Next.js 15**, **TypeScript**, **Tailwind CSS**, **Fabric.js**, **Zustand** and **next-themes**.
 
-SketchSpace is being built over one week. **Day 1 is complete:** the app shell, theme system and infinite canvas with pan and cursor-centred zoom are live. Shape drawing, saving, exports and sharing follow over the next few days.
+SketchSpace is being built over one week. **Days 1 and 2 are complete:** the app shell, theme system, infinite canvas with pan and cursor-centred zoom, and the full drawing toolset are live. Styling selected shapes, undo/redo, saving, exports and sharing follow over the next few days.
 
 ## Live demo
 
 **[maryam-whiteboard.vercel.app](https://maryam-whiteboard.vercel.app)**
 
-## Day 1 features
+## Features so far
+
+### Canvas and app shell
 
 - Full-screen, responsive app shell with no page scrollbars
 - Top bar with menu, undo/redo placeholders, zoom controls and share
@@ -22,14 +24,25 @@ SketchSpace is being built over one week. **Day 1 is complete:** the app shell, 
 - Zoom clamped between **10% and 3000%**
 - Light and dark themes, saved in `localStorage` with no flash on reload
 - Violet accent, violet selection colour and a violet S favicon
-- Help dialog with the Day 1 keyboard map
-- Inter for the UI and Patrick Hand loaded for the text tool
+- Help dialog with the live keyboard map
+- Inter for the UI and Patrick Hand for the text tool
+
+### Drawing tools
+
+- Rectangle, ellipse, diamond, line and arrow drawn by dragging with a live preview
+- Arrows are a shaft + filled arrowhead group, so they move and resize as one object
+- Freehand pencil that follows the stroke colour and width
+- Multi-line text with **Patrick Hand 20 px**, 240 px wrapping and double-click editing
+- Selection: click, drag-box, Shift + click, move, resize, rotate and **Delete**
+- Object eraser that removes whole shapes by clicking or dragging over them
+- Every object gets a unique **nanoid**
+- New shapes are selected after drawing, and the tool returns to Selection
+- Dark mode flips new-shape strokes to white while keeping existing object colours
 
 ## Planned features
 
-- Rectangle, diamond, ellipse, line and arrow tools
-- Freehand pencil and multi-line text
-- Selection, move, resize, rotate and erase
+- Style panel changes applied to the current selection
+- Soft eraser mode
 - Undo / redo history
 - Project save / open and browser autosave
 - PNG, JPEG and SVG export with background and 1x / 2x / 3x scale
@@ -87,6 +100,8 @@ npm run lint     # run ESLint
 | Eraser | `E` |
 | Pan while any tool is active | `Space` + drag |
 | Zoom to pointer | `Ctrl` + scroll |
+| Delete selection | `Delete` / `Backspace` |
+| Edit a text label | Double-click |
 | Open / close menu | `M` |
 | Help | `?` |
 | Close dialog / back to selection | `Esc` |
@@ -113,6 +128,7 @@ docs/                    plan, tasks and reports
 ## Documentation
 
 - [Day 1 summary](docs/day-1.md)
+- [Day 2 summary](docs/day-2.md)
 - [Project plan](docs/plan.md)
 - [Task checklist](docs/tasks.md)
 - [Study notes](docs/notes.md)

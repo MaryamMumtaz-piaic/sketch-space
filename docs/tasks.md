@@ -78,54 +78,56 @@
 
 ---
 
-## Day 2 — Drawing tools
+## Day 2 — Drawing tools ✅
+
+> Completed 14 Nov 2026. Summary: [day-2.md](./day-2.md).
 
 ### State and types
 
-- [ ] Create Zustand store with tool, styles, zoom and dialog state
-- [ ] Add shared types in `types/whiteboard.ts` (`Tool`, `StyleSettings`, `ProjectFile`)
-- [ ] Generate unique object IDs with `nanoid`
-- [ ] Tool switching from the toolbar
-- [ ] Disable browser text selection/drag while drawing
-- [ ] Show the correct cursor for each tool
+- [x] Create Zustand store with tool, styles, zoom and dialog state
+- [x] Add shared types in `types/whiteboard.ts` (`Tool`, `StyleSettings`, `ProjectFile`)
+- [x] Generate unique object IDs with `nanoid`
+- [x] Tool switching from the toolbar
+- [x] Disable browser text selection/drag while drawing
+- [x] Show the correct cursor for each tool
 
 ### Selection tool
 
-- [ ] Click to select an object
-- [ ] Drag box to select many objects
-- [ ] Shift + click to add to selection
-- [ ] Move selected objects
-- [ ] Resize with corner/edge handles
-- [ ] Rotate with the rotation handle
-- [ ] Delete key removes the selection
-- [ ] Click empty canvas clears the selection
+- [x] Click to select an object
+- [x] Drag box to select many objects
+- [x] Shift + click to add to selection
+- [x] Move selected objects
+- [x] Resize with corner/edge handles
+- [x] Rotate with the rotation handle
+- [x] Delete key removes the selection
+- [x] Click empty canvas clears the selection
 
 ### Shapes and lines
 
-- [ ] Rectangle tool
-- [ ] Ellipse tool
-- [ ] Diamond tool
-- [ ] Line tool
-- [ ] Arrow helper (line + arrowhead group)
-- [ ] Shapes picker panel with all five shapes
-- [ ] Shape preview while dragging
-- [ ] Cancel drawing with Escape
+- [x] Rectangle tool
+- [x] Ellipse tool
+- [x] Diamond tool
+- [x] Line tool
+- [x] Arrow helper (line + arrowhead group)
+- [x] Shapes picker panel with all five shapes
+- [x] Shape preview while dragging
+- [x] Cancel drawing with Escape
 
 ### Pencil, text and eraser
 
-- [ ] Freehand pencil with `PencilBrush`
-- [ ] Pencil respects stroke colour and width
-- [ ] Text tool creates multi-line `Textbox` with Patrick Hand, default size 20px
-- [ ] Enter adds a new line and long text wraps
-- [ ] Click to type, double-click to edit
-- [ ] Text commits on outside click / Escape
-- [ ] Object eraser removes touched objects
-- [ ] Tooltips with shortcuts on every toolbar button
+- [x] Freehand pencil with `PencilBrush`
+- [x] Pencil respects stroke colour and width
+- [x] Text tool creates multi-line `Textbox` with Patrick Hand, default size 20px
+- [x] Enter adds a new line and long text wraps
+- [x] Click to type, double-click to edit
+- [x] Text commits on outside click / Escape
+- [x] Object eraser removes touched objects
+- [x] Tooltips with shortcuts on every toolbar button
 
 ### Ship Day 2
 
-- [ ] Commit: `feat: add selection, shapes, pencil, text and eraser`
-- [ ] Push at end of day (no Vercel deploy until the final release)
+- [x] Commit: `feat: add selection, shapes, pencil, text and eraser`
+- [x] Push at end of day (no Vercel deploy until the final release)
 
 ---
 

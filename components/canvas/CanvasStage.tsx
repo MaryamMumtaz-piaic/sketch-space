@@ -3,6 +3,7 @@
 import { useRef } from "react";
 import { useTheme } from "next-themes";
 
+import { useDrawingTools } from "@/components/canvas/useDrawingTools";
 import { useFabricCanvas } from "@/components/canvas/useFabricCanvas";
 import type { CanvasApi } from "@/types/whiteboard";
 
@@ -16,7 +17,17 @@ export function CanvasStage({ onReady }: CanvasStageProps) {
   const { resolvedTheme } = useTheme();
   const theme = resolvedTheme === "dark" ? "dark" : "light";
 
-  useFabricCanvas({ containerRef, canvasRef, theme, onReady });
+  const { fabricRef, interactionRef, ready } = useFabricCanvas({
+    containerRef,
+    canvasRef,
+    theme,
+    onReady,
+  });
+
+  useDrawingTools({
+    canvas: ready ? fabricRef.current : null,
+    interactionRef,
+  });
 
   return (
     <div ref={containerRef} className="sketch-canvas">

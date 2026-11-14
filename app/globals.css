@@ -97,6 +97,8 @@ button:disabled {
 
 .sketch-canvas canvas {
   display: block;
+  -webkit-user-drag: none;
+  user-select: none;
 }
 
 .scrollbar-none {
