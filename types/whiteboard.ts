@@ -37,6 +37,8 @@ export interface CanvasApi {
   setZoom: (zoom: number) => void;
   getZoom: () => number;
   clearCanvas: () => void;
+  undo: () => void;
+  redo: () => void;
 }
 
 export interface ProjectFile {

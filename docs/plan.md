@@ -3,9 +3,9 @@
 **Project:** SketchSpace — Real-Time Interactive Whiteboard
 **Assigned to:** Maryam Mumtaz
 **Assigned by:** Muhammad Sami
-**Day:** 02 — complete
+**Day:** 03 — complete
 **Reference:** https://excalidraw.com/
-**Status:** Days 1–2 shipped and verified; Day 3 in progress
+**Status:** Days 1–3 shipped and verified; Day 4 in progress
 **Working window:** 1 week (confirmed with Sami)
 
 > The original brief asks for same-day delivery. Sami has confirmed a 1-week extension. The first Vercel deployment goes live on Day 1; after that the live app is only redeployed once the whole project is finished (see `AGENTS.md`).

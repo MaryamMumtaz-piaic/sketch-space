@@ -12,10 +12,11 @@ import { TopBar } from "@/components/topbar/TopBar";
 import { Toast } from "@/components/ui/Toast";
 import { ThemeStyleSync } from "@/components/whiteboard/ThemeStyleSync";
 import { useKeyboardShortcuts } from "@/hooks/useKeyboardShortcuts";
-import type { CanvasApi } from "@/types/whiteboard";
+import { useWhiteboardStore } from "@/stores/useWhiteboardStore";
 
 export function WhiteboardShell() {
-  const [canvasApi, setCanvasApi] = useState<CanvasApi | null>(null);
+  const canvasApi = useWhiteboardStore((state) => state.canvasApi);
+  const setCanvasApi = useWhiteboardStore((state) => state.setCanvasApi);
   const [toast, setToast] = useState<string | null>(null);
   const [resetOpen, setResetOpen] = useState(false);
 

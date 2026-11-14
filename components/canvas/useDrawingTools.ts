@@ -14,20 +14,32 @@ import {
   type Point,
   type TPointerEvent,
 } from "fabric";
+import { EraserBrush } from "@erase2d/fabric";
 import { nanoid } from "nanoid";
 
 import type { CanvasInteraction } from "@/components/canvas/useFabricCanvas";
 import {
+  captureHistorySnapshot,
+  requestHistorySnapshot,
+} from "@/lib/fabric/history";
+import {
   boundsBetween,
+  completePreview,
   createArrow,
   createArrowhead,
   createLine,
   createText,
+  markPreview,
   resizeShape,
   shapeFactory,
   updateArrowParts,
   type ShapeKind,
 } from "@/lib/fabric/shapes";
+import {
+  applyStyleToSelection,
+  readStyleFromObject,
+  styleSignature,
+} from "@/lib/fabric/styles";
 import { isTypingTarget } from "@/lib/utils";
 import { useWhiteboardStore } from "@/stores/useWhiteboardStore";
 import type { StyleSettings } from "@/types/whiteboard";
@@ -79,6 +91,10 @@ export function useDrawingTools({
   const activeTool = useWhiteboardStore((state) => state.activeTool);
   const setActiveTool = useWhiteboardStore((state) => state.setActiveTool);
   const style = useWhiteboardStore((state) => state.style);
+  const hydrateStyle = useWhiteboardStore((state) => state.hydrateStyle);
+  const setHasSelection = useWhiteboardStore(
+    (state) => state.setHasSelection,
+  );
 
   const toolRef = useRef(activeTool);
   const styleRef = useRef<StyleSettings>(style);
@@ -93,15 +109,84 @@ export function useDrawingTools({
     styleRef.current = style;
   }, [style]);
 
-  // Pencil brush follows the current style.
+  // Pencil brush follows the current style. The soft eraser swaps the brush.
   useEffect(() => {
-    if (!canvas) return;
+    if (!canvas || style.eraserMode === "soft") return;
     const brush = new PencilBrush(canvas);
     brush.color = style.stroke;
     brush.width = Math.max(1, style.strokeWidth);
     brush.decimate = 1.5;
     canvas.freeDrawingBrush = brush;
-  }, [canvas, style.stroke, style.strokeWidth]);
+  }, [canvas, style.stroke, style.strokeWidth, style.eraserMode]);
+
+  // Soft eraser: clips whatever it passes over instead of deleting whole
+  // objects. The gesture is one history step.
+  useEffect(() => {
+    if (!canvas || style.eraserMode !== "soft") return;
+    const eraser = new EraserBrush(canvas);
+    eraser.color = "rgba(0, 0, 0, 1)";
+    eraser.width = Math.max(12, style.strokeWidth * 6);
+
+    const offEnd = eraser.on("end", (event) => {
+      // Commit manually so the snapshot lands after the clip paths exist.
+      event.preventDefault();
+      const { path, targets } = event.detail;
+      void eraser.commit({ path, targets }).then(() => {
+        captureHistorySnapshot();
+      });
+      requestHistorySnapshot();
+    });
+
+    canvas.freeDrawingBrush = eraser;
+    return () => {
+      offEnd();
+      eraser.dispose();
+      if (canvas.freeDrawingBrush === eraser) {
+        canvas.freeDrawingBrush = new PencilBrush(canvas);
+      }
+    };
+  }, [canvas, style.eraserMode, style.strokeWidth]);
+
+  // Mirror the active selection back into the style panel.
+  useEffect(() => {
+    if (!canvas) return;
+
+    const syncFromSelection = () => {
+      const active = canvas.getActiveObjects();
+      setHasSelection(active.length > 0);
+      if (active.length === 0) return;
+      hydrateStyle(readStyleFromObject(active[0]));
+    };
+
+    const clearSelectionFlag = () => setHasSelection(false);
+
+    canvas.on("selection:created", syncFromSelection);
+    canvas.on("selection:updated", syncFromSelection);
+    canvas.on("selection:cleared", clearSelectionFlag);
+
+    return () => {
+      canvas.off("selection:created", syncFromSelection);
+      canvas.off("selection:updated", syncFromSelection);
+      canvas.off("selection:cleared", clearSelectionFlag);
+    };
+  }, [canvas, hydrateStyle, setHasSelection]);
+
+  // Panel changes apply to the current selection as well as the next shape.
+  // Applying is idempotent, so the mirror write above causes no extra work, and
+  // only a real change becomes an undo step.
+  useEffect(() => {
+    if (!canvas) return;
+    const active = canvas.getActiveObjects();
+    if (active.length === 0) return;
+
+    const before = active.map(styleSignature);
+    applyStyleToSelection(active, style);
+    const changed = active.some(
+      (object, index) => styleSignature(object) !== before[index],
+    );
+    canvas.requestRenderAll();
+    if (changed) requestHistorySnapshot();
+  }, [canvas, style]);
 
   useEffect(() => {
     if (!canvas) return;
@@ -148,19 +233,19 @@ export function useDrawingTools({
         const shaft = createLine(point, point, currentStyle());
         const head = createArrowhead(point, point, currentStyle());
         for (const part of [shaft, head]) {
-          part.set({ selectable: false, evented: false });
+          markPreview(part);
           canvas.add(part);
         }
         preview.shaft = shaft;
         preview.head = head;
       } else if (kind === "line") {
         const line = createLine(point, point, currentStyle());
-        line.set({ selectable: false, evented: false });
+        markPreview(line);
         canvas.add(line);
         preview.object = line;
       } else {
         const shape = shapeFactory(kind, point, point, currentStyle());
-        shape.set({ selectable: false, evented: false });
+        markPreview(shape);
         canvas.add(shape);
         preview.object = shape;
       }
@@ -199,7 +284,7 @@ export function useDrawingTools({
           point,
           currentStyle(),
         );
-        next.set({ selectable: false, evented: false });
+        markPreview(next);
         canvas.remove(preview.object);
         canvas.add(next);
         preview.object = next;
@@ -244,20 +329,24 @@ export function useDrawingTools({
         canvas.setActiveObject(arrow);
       } else if (preview.object) {
         const object = preview.object;
-        object.set({ selectable: true, evented: true });
-        object.setCoords();
+        completePreview(object);
         canvas.setActiveObject(object);
       }
 
       previewRef.current = { ...EMPTY_PREVIEW };
       canvas.requestRenderAll();
       setActiveTool("select");
+      captureHistorySnapshot();
     };
 
     const handleMouseDown = (opt: { e: TPointerEvent }) => {
       if (isBusy()) return;
       if (opt.e instanceof MouseEvent && opt.e.button !== 0) return;
       const tool = toolRef.current;
+
+      // Flush any pending style snapshot before the scene changes, so undo
+      // steps stay aligned with what the user actually did.
+      if (tool !== "select" && tool !== "hand") captureHistorySnapshot();
 
       // A new drawing always starts from a clean selection.
       if (tool !== "select" && tool !== "hand") {
@@ -268,6 +357,7 @@ export function useDrawingTools({
       }
 
       if (tool === "eraser") {
+        if (currentStyle().eraserMode === "soft") return;
         erasingRef.current = true;
         eraseAt(canvas.getScenePoint(opt.e));
         return;
@@ -306,6 +396,7 @@ export function useDrawingTools({
 
     const handlePathCreated = ({ path }: { path: FabricObject }) => {
       (path as FabricObject & { id: string }).id = nanoid();
+      path.erasable = true;
       path.set({
         opacity: currentStyle().opacity / 100,
         strokeUniform: true,
@@ -320,6 +411,7 @@ export function useDrawingTools({
         canvas.discardActiveObject();
         canvas.requestRenderAll();
       }
+      captureHistorySnapshot();
     };
 
     // Clicking any UI outside the canvas commits the text being edited.

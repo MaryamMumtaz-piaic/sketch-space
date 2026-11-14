@@ -3,26 +3,30 @@
 import { Redo2, Undo2 } from "lucide-react";
 
 import { IconButton } from "@/components/ui/IconButton";
+import { useWhiteboardStore } from "@/stores/useWhiteboardStore";
 
-/**
- * Day 1 shell: buttons are present and disabled until the history stack lands
- * with the drawing tools.
- */
 export function UndoRedoButtons() {
+  const undo = useWhiteboardStore((state) => state.canvasApi?.undo);
+  const redo = useWhiteboardStore((state) => state.canvasApi?.redo);
+  const canUndo = useWhiteboardStore((state) => state.canUndo);
+  const canRedo = useWhiteboardStore((state) => state.canRedo);
+
   return (
     <>
       <IconButton
         icon={Undo2}
-        label="Undo (coming soon)"
+        label="Undo"
         shortcut="Ctrl Z"
-        disabled
+        disabled={!canUndo}
+        onClick={() => undo?.()}
         tooltipSide="bottom"
       />
       <IconButton
         icon={Redo2}
-        label="Redo (coming soon)"
+        label="Redo"
         shortcut="Ctrl Shift Z"
-        disabled
+        disabled={!canRedo}
+        onClick={() => redo?.()}
         tooltipSide="bottom"
       />
     </>

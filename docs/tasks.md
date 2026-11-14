@@ -131,63 +131,65 @@
 
 ---
 
-## Day 3 — Styling, undo/redo, shortcuts
+## Day 3 — Styling, undo/redo, shortcuts ✅
+
+> Completed 14 Nov 2026. Summary: [day-3.md](./day-3.md).
 
 ### Style panel
 
-- [ ] Style panel layout with labelled sections
-- [ ] Excalidraw classic stroke palette (black, red, green, blue, orange, violet) + custom colour input
-- [ ] Excalidraw classic fill palette + "No fill" option
-- [ ] Stroke width: thin / medium / thick (1 / 2 / 4 px)
-- [ ] Opacity slider (0–100%)
-- [ ] Stroke style: solid / dashed / dotted (via `strokeDashArray`)
-- [ ] Changes apply to the next shape drawn
-- [ ] Changes apply to the current selection
-- [ ] Panel syncs when an existing object is selected
-- [ ] Default for new shapes: dark stroke, transparent fill, 2px medium width, 100% opacity, solid line
-- [ ] Panel hides when nothing is selected and no drawing tool is active
+- [x] Style panel layout with labelled sections
+- [x] Excalidraw classic stroke palette (black, red, green, blue, orange, violet) + custom colour input
+- [x] Excalidraw classic fill palette + "No fill" option
+- [x] Stroke width: thin / medium / thick (1 / 2 / 4 px)
+- [x] Opacity slider (0–100%)
+- [x] Stroke style: solid / dashed / dotted (via `strokeDashArray`)
+- [x] Changes apply to the next shape drawn
+- [x] Changes apply to the current selection
+- [x] Panel syncs when an existing object is selected
+- [x] Default for new shapes: dark stroke, transparent fill, 2px medium width, 100% opacity, solid line
+- [x] Panel hides when nothing is selected and no drawing tool is active
 
 ### Eraser modes
 
-- [ ] Object / Soft eraser toggle in the style panel
-- [ ] Object eraser mode works as default
-- [ ] Soft eraser implementation (Fabric eraser brush)
-- [ ] Soft-erased drawing still saves, loads and exports correctly
+- [x] Object / Soft eraser toggle in the style panel
+- [x] Object eraser mode works as default
+- [x] Soft eraser implementation (Fabric eraser brush)
+- [x] Soft-erased drawing still saves, loads and exports correctly — JSON round-trip proven by undo/redo; export checked on Day 4
 
 ### Undo and redo
 
-- [ ] History service with JSON snapshots
-- [ ] Push snapshot on `object:added`
-- [ ] Push snapshot on `object:modified`
-- [ ] Push snapshot on `object:removed`
-- [ ] Push snapshot on `path:created`
-- [ ] Debounce rapid history pushes while dragging
-- [ ] Undo button + Ctrl+Z
-- [ ] Redo button + Ctrl+Y / Ctrl+Shift+Z
-- [ ] Disable buttons when no history is available
-- [ ] Cap history at ~50 snapshots
-- [ ] Skip history while loading a file or share link
+- [x] History service with JSON snapshots
+- [x] Push snapshot on `object:added`
+- [x] Push snapshot on `object:modified`
+- [x] Push snapshot on `object:removed`
+- [x] Push snapshot on `path:created`
+- [x] Debounce rapid history pushes while dragging
+- [x] Undo button + Ctrl+Z
+- [x] Redo button + Ctrl+Y / Ctrl+Shift+Z
+- [x] Disable buttons when no history is available
+- [x] Cap history at ~50 snapshots
+- [x] Skip history while loading a file or share link — `runWithoutHistory()` API ready; wired up on Day 4/5
 
 ### Keyboard shortcuts
 
-- [ ] V / 1 — Selection
-- [ ] H — Hand
-- [ ] R — Rectangle
-- [ ] O — Ellipse
-- [ ] D — Diamond
-- [ ] A — Arrow
-- [ ] L — Line
-- [ ] P — Pencil
-- [ ] T — Text
-- [ ] E — Eraser
-- [ ] Delete — delete selection
-- [ ] Space + drag — temporary pan
-- [ ] Shortcuts are ignored while typing in an input or editing text
+- [x] V / 1 — Selection
+- [x] H — Hand
+- [x] R — Rectangle
+- [x] O — Ellipse
+- [x] D — Diamond
+- [x] A — Arrow
+- [x] L — Line
+- [x] P — Pencil
+- [x] T — Text
+- [x] E — Eraser
+- [x] Delete — delete selection
+- [x] Space + drag — temporary pan
+- [x] Shortcuts are ignored while typing in an input or editing text
 
 ### Ship Day 3
 
-- [ ] Commit: `feat: add style panel, eraser modes, history and shortcuts`
-- [ ] Push and test on the live link
+- [x] Commit: `feat: add style panel, eraser modes, history and shortcuts`
+- [x] Push and test on the live link — push only; live link stays on Day 1 until the final release (see `AGENTS.md`)
 
 ---
 

@@ -4,6 +4,7 @@ import { useRef } from "react";
 import { useTheme } from "next-themes";
 
 import { useDrawingTools } from "@/components/canvas/useDrawingTools";
+import { useCanvasHistory } from "@/components/canvas/useCanvasHistory";
 import { useFabricCanvas } from "@/components/canvas/useFabricCanvas";
 import type { CanvasApi } from "@/types/whiteboard";
 
@@ -24,8 +25,11 @@ export function CanvasStage({ onReady }: CanvasStageProps) {
     onReady,
   });
 
+  const canvas = ready ? fabricRef.current : null;
+
+  useCanvasHistory(canvas);
   useDrawingTools({
-    canvas: ready ? fabricRef.current : null,
+    canvas,
     interactionRef,
   });
 

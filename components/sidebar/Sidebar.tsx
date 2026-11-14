@@ -57,7 +57,7 @@ export function Sidebar({ onNotify, onReset }: SidebarProps) {
 
   const comingSoon = (feature: string, day: string) => {
     setOpen(false);
-    onNotify(`${feature} arrives on ${day} — Day 1 is the canvas shell.`);
+    onNotify(`${feature} arrives on ${day}.`);
   };
 
   return (
@@ -112,22 +112,22 @@ export function Sidebar({ onNotify, onReset }: SidebarProps) {
               icon={Upload}
               label="Open File"
               description="Load a .json drawing"
-              badge="Day 3"
-              onClick={() => comingSoon("Opening files", "Day 3")}
+              badge="Day 4"
+              onClick={() => comingSoon("Opening files", "Day 4")}
             />
             <SidebarItem
               icon={Save}
               label="Save Project"
               description="Download and autosave"
-              badge="Day 3"
-              onClick={() => comingSoon("Saving projects", "Day 3")}
+              badge="Day 4"
+              onClick={() => comingSoon("Saving projects", "Day 4")}
             />
             <SidebarItem
               icon={ImageIcon}
               label="Export as Image"
               description="PNG, JPEG or SVG"
-              badge="Day 4"
-              onClick={() => comingSoon("Image export", "Day 4")}
+            badge="Day 4"
+            onClick={() => comingSoon("Image export", "Day 4")}
             />
           </div>
 
@@ -199,8 +199,8 @@ export function Sidebar({ onNotify, onReset }: SidebarProps) {
 
         <div className="border-t border-line px-4 py-3">
           <div className="flex items-center justify-between text-[10px] text-muted">
-            <span>Day 2 preview</span>
-            <span className="font-medium tabular-nums">v0.2.0</span>
+            <span>Day 3 preview</span>
+            <span className="font-medium tabular-nums">v0.3.0</span>
           </div>
         </div>
       </aside>

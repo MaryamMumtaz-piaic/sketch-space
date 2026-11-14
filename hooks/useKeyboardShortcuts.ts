@@ -21,10 +21,24 @@ export function useKeyboardShortcuts() {
   useEffect(() => {
     const onKeyDown = (event: KeyboardEvent) => {
       if (event.repeat) return;
-      if (event.ctrlKey || event.metaKey || event.altKey) return;
       if (isTypingTarget(event.target)) return;
 
       const state = useWhiteboardStore.getState();
+
+      // Undo / redo work even with dialogs open, but never while typing.
+      if ((event.ctrlKey || event.metaKey) && !event.altKey) {
+        const command = event.key.toLowerCase();
+        if (command === "z") {
+          event.preventDefault();
+          if (event.shiftKey) state.canvasApi?.redo();
+          else state.canvasApi?.undo();
+        } else if (command === "y") {
+          event.preventDefault();
+          state.canvasApi?.redo();
+        }
+        return;
+      }
+      if (event.altKey) return;
 
       if (event.key === "Escape") {
         if (state.helpOpen) {
@@ -51,6 +65,12 @@ export function useKeyboardShortcuts() {
       if (event.key === "?") {
         event.preventDefault();
         state.setHelpOpen(true);
+        return;
+      }
+
+      if (key === "1") {
+        event.preventDefault();
+        setActiveTool("select");
         return;
       }
 

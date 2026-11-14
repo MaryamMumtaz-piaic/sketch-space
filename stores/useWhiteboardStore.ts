@@ -10,14 +10,24 @@ import {
   MIN_ZOOM,
 } from "@/lib/constants";
 import { clamp } from "@/lib/utils";
-import type { StyleSettings, Tool } from "@/types/whiteboard";
+import type { CanvasApi, StyleSettings, Tool } from "@/types/whiteboard";
 
 interface WhiteboardState {
   activeTool: Tool;
   setActiveTool: (tool: Tool) => void;
 
+  canvasApi: CanvasApi | null;
+  setCanvasApi: (api: CanvasApi | null) => void;
+
   zoom: number;
   setZoom: (zoom: number) => void;
+
+  canUndo: boolean;
+  canRedo: boolean;
+  setHistoryState: (state: { canUndo: boolean; canRedo: boolean }) => void;
+
+  hasSelection: boolean;
+  setHasSelection: (hasSelection: boolean) => void;
 
   sidebarOpen: boolean;
   setSidebarOpen: (open: boolean) => void;
@@ -30,6 +40,7 @@ interface WhiteboardState {
   setStyle: (patch: Partial<StyleSettings>) => void;
   setStroke: (stroke: string) => void;
   setFill: (fill: string | null) => void;
+  hydrateStyle: (patch: Partial<StyleSettings>) => void;
   applyThemeStroke: (theme: "light" | "dark") => void;
 }
 
@@ -37,8 +48,18 @@ export const useWhiteboardStore = create<WhiteboardState>((set) => ({
   activeTool: "select",
   setActiveTool: (activeTool) => set({ activeTool }),
 
+  canvasApi: null,
+  setCanvasApi: (canvasApi) => set({ canvasApi }),
+
   zoom: 1,
   setZoom: (zoom) => set({ zoom: clamp(zoom, MIN_ZOOM, MAX_ZOOM) }),
+
+  canUndo: false,
+  canRedo: false,
+  setHistoryState: ({ canUndo, canRedo }) => set({ canUndo, canRedo }),
+
+  hasSelection: false,
+  setHasSelection: (hasSelection) => set({ hasSelection }),
 
   sidebarOpen: false,
   setSidebarOpen: (sidebarOpen) => set({ sidebarOpen }),
@@ -59,6 +80,15 @@ export const useWhiteboardStore = create<WhiteboardState>((set) => ({
       style: { ...state.style, stroke, strokeAuto: false },
     })),
   setFill: (fill) => set((state) => ({ style: { ...state.style, fill } })),
+  // Used when the panel mirrors an existing object instead of the user.
+  hydrateStyle: (patch) =>
+    set((state) => ({
+      style: {
+        ...state.style,
+        ...patch,
+        ...(patch.stroke ? { strokeAuto: false } : {}),
+      },
+    })),
   applyThemeStroke: (theme) =>
     set((state) => {
       if (!state.style.strokeAuto) return state;

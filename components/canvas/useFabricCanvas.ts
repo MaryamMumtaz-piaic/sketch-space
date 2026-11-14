@@ -11,6 +11,7 @@ import {
   MIN_ZOOM,
   ZOOM_STEP,
 } from "@/lib/constants";
+import { redoCanvas, undoCanvas } from "@/lib/fabric/history";
 import { clamp, isTypingTarget } from "@/lib/utils";
 import { useWhiteboardStore } from "@/stores/useWhiteboardStore";
 import type { CanvasApi, Tool } from "@/types/whiteboard";
@@ -42,13 +43,16 @@ function applyMode(
   tool: Tool,
   spaceDown: boolean,
   panning: boolean,
+  softEraser: boolean,
 ) {
   const panReady = spaceDown || tool === "hand" || panning;
-  // Pencil is the only tool that draws through Fabric's brush. Everything
-  // else uses our own pointer handlers, so Fabric hit-testing stays off.
-  canvas.isDrawingMode = tool === "pencil" && !panReady;
+  // Pencil and the soft eraser are the only tools that draw through Fabric's
+  // brush. Everything else uses our own pointer handlers, so hit-testing stays
+  // off.
+  const brushing = tool === "pencil" || (tool === "eraser" && softEraser);
+  canvas.isDrawingMode = brushing && !panReady;
   canvas.selection = tool === "select" && !panReady;
-  canvas.skipTargetFind = panReady || tool !== "select";
+  canvas.skipTargetFind = panReady || (tool !== "select" && !brushing);
 }
 
 function applyCursor(
@@ -103,6 +107,7 @@ export function useFabricCanvas({
   onReady,
 }: UseFabricCanvasOptions) {
   const activeTool = useWhiteboardStore((state) => state.activeTool);
+  const eraserMode = useWhiteboardStore((state) => state.style.eraserMode);
   const setZoom = useWhiteboardStore((state) => state.setZoom);
 
   const fabricRef = useRef<Canvas | null>(null);
@@ -196,6 +201,8 @@ export function useFabricCanvas({
         canvas.discardActiveObject();
         canvas.requestRenderAll();
       },
+      undo: () => undoCanvas(),
+      redo: () => redoCanvas(),
     };
 
     onReadyRef.current?.(api);
@@ -266,7 +273,13 @@ export function useFabricCanvas({
       if (!panRef.current.active) return;
       panRef.current.active = false;
       interactionRef.current.panning = false;
-      applyMode(canvas, toolRef.current, spaceRef.current, false);
+      applyMode(
+        canvas,
+        toolRef.current,
+        spaceRef.current,
+        false,
+        useWhiteboardStore.getState().style.eraserMode === "soft",
+      );
       applyCursor(canvas, toolRef.current, spaceRef.current, false);
     };
 
@@ -367,16 +380,23 @@ export function useFabricCanvas({
     };
   }, []);
 
-  // Selection, pencil mode and cursors follow the active tool / pan modifier.
+  // Selection, pencil / soft-eraser mode and cursors follow the active tool,
+  // the pan modifier and the eraser mode.
   useEffect(() => {
     toolRef.current = activeTool;
     interactionRef.current.spaceDown = spaceDown;
     const canvas = fabricRef.current;
     if (!canvas) return;
 
-    applyMode(canvas, activeTool, spaceDown, panRef.current.active);
+    applyMode(
+      canvas,
+      activeTool,
+      spaceDown,
+      panRef.current.active,
+      eraserMode === "soft",
+    );
     applyCursor(canvas, activeTool, spaceDown, panRef.current.active);
-  }, [activeTool, spaceDown]);
+  }, [activeTool, spaceDown, eraserMode]);
 
   return { fabricRef, interactionRef, ready };
 }

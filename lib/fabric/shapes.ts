@@ -15,8 +15,11 @@ import { nanoid } from "nanoid";
 import { ACCENT } from "@/lib/constants";
 import type { StyleSettings } from "@/types/whiteboard";
 
-/** Persist the nanoid we attach to every object. */
-FabricObject.customProperties = ["id"];
+/**
+ * Persist the nanoid we attach to every object, plus the flags the soft eraser
+ * and the history need to survive a save / load round-trip.
+ */
+FabricObject.customProperties = ["id", "erasable", "preview"];
 
 /** Excalidraw-style violet selection instead of Fabric's default blue. */
 FabricObject.ownDefaults.borderColor = ACCENT;
@@ -72,6 +75,22 @@ export function baseStyle(style: StyleSettings): Partial<FabricObjectProps> {
 
 function withId<T extends FabricObject>(object: T): T {
   (object as T & { id: string }).id = nanoid();
+  object.erasable = true;
+  return object;
+}
+
+/** Flag a temporary drag preview so it never enters the history. */
+export function markPreview(object: FabricObject): FabricObject {
+  object.preview = true;
+  object.set({ selectable: false, evented: false });
+  return object;
+}
+
+/** Flip a preview object into a real, selectable scene object. */
+export function completePreview(object: FabricObject): FabricObject {
+  object.preview = false;
+  object.set({ selectable: true, evented: true });
+  object.setCoords();
   return object;
 }
 
