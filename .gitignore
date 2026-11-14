@@ -41,3 +41,5 @@ next-env.d.ts
 
 # assignment brief (not part of the app)
 Day1_task.pdf
+
+.vercel

@@ -71,8 +71,8 @@
 
 - [x] Commit: `feat: add infinite canvas with pan and zoom`
 - [x] Push to GitHub
-- [ ] Import repo into Vercel and deploy
-- [ ] Open the live link and test pan/zoom again
+- [x] Import repo into Vercel and deploy
+- [x] Open the live link and test pan/zoom again
 
 ---
 

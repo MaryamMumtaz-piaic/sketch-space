@@ -6,7 +6,7 @@ SketchSpace is being built over one week. **Day 1 is complete:** the app shell, 
 
 ## Live demo
 
-Coming soon — the first Vercel deployment is part of Day 1.
+**[maryam-whiteboard.vercel.app](https://maryam-whiteboard.vercel.app)**
 
 ## Day 1 features
 
