@@ -112,6 +112,7 @@ docs/                    plan, tasks and reports
 
 ## Documentation
 
+- [Day 1 summary](docs/day-1.md)
 - [Project plan](docs/plan.md)
 - [Task checklist](docs/tasks.md)
 - [Study notes](docs/notes.md)

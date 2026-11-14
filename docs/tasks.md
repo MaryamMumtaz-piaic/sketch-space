@@ -19,7 +19,9 @@
 
 ---
 
-## Day 1 — Setup and canvas shell
+## Day 1 — Setup and canvas shell ✅
+
+> Completed 13 Nov 2026. Summary: [day-1.md](./day-1.md).
 
 ### Project setup
 
@@ -123,7 +125,7 @@
 ### Ship Day 2
 
 - [ ] Commit: `feat: add selection, shapes, pencil, text and eraser`
-- [ ] Push and confirm Vercel redeploy works
+- [ ] Push at end of day (no Vercel deploy until the final release)
 
 ---
 

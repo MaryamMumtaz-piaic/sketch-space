@@ -3,12 +3,20 @@
 **Project:** SketchSpace — Real-Time Interactive Whiteboard
 **Assigned to:** Maryam Mumtaz
 **Assigned by:** Muhammad Sami
-**Day:** 01
+**Day:** 01 — complete
 **Reference:** https://excalidraw.com/
-**Status:** Plan written before coding
+**Status:** Day 1 shipped and verified; Day 2 in progress
 **Working window:** 1 week (confirmed with Sami)
 
-> The original brief asks for same-day delivery. Sami has confirmed a 1-week extension. The Vercel deployment goes live from Day 1 and is redeployed daily.
+> The original brief asks for same-day delivery. Sami has confirmed a 1-week extension. The first Vercel deployment goes live on Day 1; after that the live app is only redeployed once the whole project is finished (see `AGENTS.md`).
+
+---
+
+## 0.1 Working rules
+
+- **No deploys until the end:** do not run `vercel` while any task in `tasks.md` is unticked. Deploy once, at the end.
+- **Commit at end of day:** build and test during the day, then commit and push the day's work in the evening.
+- Full detail lives in [`AGENTS.md`](../AGENTS.md).
 
 ---
 
