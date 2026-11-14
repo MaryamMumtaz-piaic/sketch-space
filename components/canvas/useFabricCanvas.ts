@@ -90,6 +90,7 @@ export function useFabricCanvas({
   const panRef = useRef({ active: false, lastX: 0, lastY: 0 });
   const toolRef = useRef(activeTool);
   const spaceRef = useRef(false);
+  const pointerRef = useRef(true);
   const onReadyRef = useRef(onReady);
   const [spaceDown, setSpaceDown] = useState(false);
 
@@ -264,16 +265,26 @@ export function useFabricCanvas({
   }, [theme]);
 
   // Space-to-pan, without hijacking typing or button activation.
+  //
+  // `:focus-visible` is unreliable here because browsers flip it on as soon as
+  // any key is pressed. Track the input modality ourselves instead: after a
+  // mouse click a focused button must still yield to Space-to-pan, while after
+  // Tab navigation Space should still activate the button.
   useEffect(() => {
     const onKeyDown = (event: KeyboardEvent) => {
       if (event.code !== "Space" || event.repeat) return;
       if (isTypingTarget(event.target)) return;
-      if (
-        event.target instanceof HTMLElement &&
-        event.target.closest("button, a, [role='button']")
-      ) {
-        return;
+
+      const { sidebarOpen, helpOpen } = useWhiteboardStore.getState();
+      if (sidebarOpen || helpOpen) return;
+
+      if (event.target instanceof HTMLElement) {
+        const control = event.target.closest(
+          "button, a, [role='button'], [role='switch']",
+        );
+        if (control && !pointerRef.current) return;
       }
+
       event.preventDefault();
       spaceRef.current = true;
       setSpaceDown(true);
@@ -290,11 +301,24 @@ export function useFabricCanvas({
       setSpaceDown(false);
     };
 
+    // Any pointer press means the user is working with the mouse; Tab means
+    // they are navigating by keyboard.
+    const markPointer = () => {
+      pointerRef.current = true;
+    };
+    const markKeyboard = (event: KeyboardEvent) => {
+      if (event.key === "Tab") pointerRef.current = false;
+    };
+
+    window.addEventListener("pointerdown", markPointer, true);
+    window.addEventListener("keydown", markKeyboard, true);
     window.addEventListener("keydown", onKeyDown);
     window.addEventListener("keyup", onKeyUp);
     window.addEventListener("blur", onBlur);
 
     return () => {
+      window.removeEventListener("pointerdown", markPointer, true);
+      window.removeEventListener("keydown", markKeyboard, true);
       window.removeEventListener("keydown", onKeyDown);
       window.removeEventListener("keyup", onKeyUp);
       window.removeEventListener("blur", onBlur);
