@@ -2,7 +2,7 @@
 
 A fast, Excalidraw-style infinite whiteboard built with **Next.js 15**, **TypeScript**, **Tailwind CSS**, **Fabric.js**, **Zustand** and **next-themes**.
 
-SketchSpace is being built over one week. **Days 1–3 are complete:** the app shell, theme system, infinite canvas, the full drawing toolset, selection styling, soft erasing and undo/redo are live. Saving, exporting and sharing follow over the next few days.
+SketchSpace is being built over one week. **Days 1–4 are complete:** the app shell, theme system, infinite canvas, the full drawing toolset, selection styling, soft erasing, undo/redo, project saving, autosave and PNG / JPEG / SVG export are live. Share links and the bonus round follow next.
 
 ## Live demo
 
@@ -49,10 +49,20 @@ SketchSpace is being built over one week. **Days 1–3 are complete:** the app s
 - Undo/redo buttons disable themselves when there is nothing to undo or redo
 - Gestures such as dragging or erasing collapse into a single history step
 
+### Files and export
+
+- **Save Project** downloads `sketchspace-YYYY-MM-DD.json` and writes a copy to the browser
+- **Autosave** (500 ms debounce) restores the drawing after a refresh
+- **Open File** validates the project type and version, with friendly errors for bad files
+- **Reset Canvas** asks for confirmation and clears both the canvas and its autosave
+- **Export as image** supports PNG, JPEG and SVG
+- Background on / off, with PNG transparency when it is off
+- 1x / 2x / 3x scale (SVG stays vector), defaulting to PNG, background on and 2x
+- Exports contain only the drawing — never the toolbar, dialogs or selection handles
+- Quota-safe autosave: a full `localStorage` shows a warning instead of breaking the app
+
 ## Planned features
 
-- Project save / open and browser autosave
-- PNG, JPEG and SVG export with background and 1x / 2x / 3x scale
 - Share links compressed with lz-string
 - Arrow binding to shapes and pinch zoom
 
@@ -125,11 +135,11 @@ components/
   topbar/                top bar, zoom controls, undo/redo
   toolbar/               floating toolbar, tool buttons, style panel
   sidebar/               slide-in menu and menu items
-  dialogs/               help and confirm dialogs
+  dialogs/               help, confirm and export dialogs
   ui/                    buttons, tooltip, dialog, toast, logo
   whiteboard/            full-screen shell and theme sync
-hooks/                   keyboard shortcuts (autosave arrives later)
-lib/                     constants, utilities, Fabric helpers
+hooks/                   keyboard shortcuts
+lib/                     constants, utilities, download, persistence, Fabric helpers
 stores/                  Zustand UI store
 types/                   shared TypeScript types
 docs/                    plan, tasks and reports
@@ -140,6 +150,7 @@ docs/                    plan, tasks and reports
 - [Day 1 summary](docs/day-1.md)
 - [Day 2 summary](docs/day-2.md)
 - [Day 3 summary](docs/day-3.md)
+- [Day 4 summary](docs/day-4.md)
 - [Project plan](docs/plan.md)
 - [Task checklist](docs/tasks.md)
 - [Study notes](docs/notes.md)

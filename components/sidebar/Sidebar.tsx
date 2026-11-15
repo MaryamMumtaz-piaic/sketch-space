@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type ChangeEvent } from "react";
 import { useTheme } from "next-themes";
 import {
   CircleQuestionMark,
@@ -17,6 +17,12 @@ import { SidebarItem } from "@/components/sidebar/SidebarItem";
 import { IconButton } from "@/components/ui/IconButton";
 import { Logo } from "@/components/ui/Logo";
 import { APP_NAME } from "@/lib/constants";
+import { downloadProject, projectFileName } from "@/lib/download";
+import {
+  parseProjectFile,
+  ProjectFileError,
+} from "@/lib/fabric/serialize";
+import { saveAutosave } from "@/lib/persistence";
 import { cn } from "@/lib/utils";
 import { useWhiteboardStore } from "@/stores/useWhiteboardStore";
 
@@ -29,9 +35,12 @@ export function Sidebar({ onNotify, onReset }: SidebarProps) {
   const open = useWhiteboardStore((state) => state.sidebarOpen);
   const setOpen = useWhiteboardStore((state) => state.setSidebarOpen);
   const setHelpOpen = useWhiteboardStore((state) => state.setHelpOpen);
+  const setExportOpen = useWhiteboardStore((state) => state.setExportOpen);
+  const canvasApi = useWhiteboardStore((state) => state.canvasApi);
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
   const panelRef = useRef<HTMLElement>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => setMounted(true), []);
 
@@ -55,9 +64,62 @@ export function Sidebar({ onNotify, onReset }: SidebarProps) {
 
   const isDark = mounted && theme === "dark";
 
-  const comingSoon = (feature: string, day: string) => {
+  const handleSaveProject = () => {
     setOpen(false);
-    onNotify(`${feature} arrives on ${day}.`);
+    if (!canvasApi) {
+      onNotify("The canvas is not ready yet. Give it a moment and try again.");
+      return;
+    }
+
+    const project = canvasApi.getProjectFile();
+    const filename = projectFileName();
+    downloadProject(project, filename);
+
+    const result = saveAutosave(project);
+    onNotify(
+      result.ok
+        ? `Saved ${filename}.`
+        : `Downloaded ${filename}, but browser autosave failed — storage is full.`,
+    );
+  };
+
+  const handleOpenFile = () => {
+    setOpen(false);
+    fileInputRef.current?.click();
+  };
+
+  const handleFileChange = async (event: ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    // Allow choosing the same file again after fixing it.
+    event.target.value = "";
+    if (!file) return;
+
+    if (!file.name.toLowerCase().endsWith(".json")) {
+      onNotify("Choose a SketchSpace .json project file.");
+      return;
+    }
+
+    if (!canvasApi) {
+      onNotify("The canvas is not ready yet. Give it a moment and try again.");
+      return;
+    }
+
+    try {
+      const project = parseProjectFile(await file.text());
+      await canvasApi.loadProjectFile(project);
+      const result = saveAutosave(project);
+      onNotify(
+        result.ok
+          ? "Drawing loaded."
+          : "Drawing loaded, but browser autosave failed — storage is full.",
+      );
+    } catch (error) {
+      onNotify(
+        error instanceof ProjectFileError
+          ? error.message
+          : "That file could not be opened. Choose a SketchSpace .json project.",
+      );
+    }
   };
 
   return (
@@ -112,22 +174,22 @@ export function Sidebar({ onNotify, onReset }: SidebarProps) {
               icon={Upload}
               label="Open File"
               description="Load a .json drawing"
-              badge="Day 4"
-              onClick={() => comingSoon("Opening files", "Day 4")}
+              onClick={handleOpenFile}
             />
             <SidebarItem
               icon={Save}
               label="Save Project"
               description="Download and autosave"
-              badge="Day 4"
-              onClick={() => comingSoon("Saving projects", "Day 4")}
+              onClick={handleSaveProject}
             />
             <SidebarItem
               icon={ImageIcon}
               label="Export as Image"
               description="PNG, JPEG or SVG"
-            badge="Day 4"
-            onClick={() => comingSoon("Image export", "Day 4")}
+              onClick={() => {
+                setOpen(false);
+                setExportOpen(true);
+              }}
             />
           </div>
 
@@ -199,11 +261,21 @@ export function Sidebar({ onNotify, onReset }: SidebarProps) {
 
         <div className="border-t border-line px-4 py-3">
           <div className="flex items-center justify-between text-[10px] text-muted">
-            <span>Day 3 preview</span>
-            <span className="font-medium tabular-nums">v0.3.0</span>
+            <span>Day 4 preview</span>
+            <span className="font-medium tabular-nums">v0.4.0</span>
           </div>
         </div>
       </aside>
+
+      <input
+        ref={fileInputRef}
+        type="file"
+        accept=".json,application/json"
+        onChange={handleFileChange}
+        className="hidden"
+        aria-hidden="true"
+        tabIndex={-1}
+      />
     </>
   );
 }

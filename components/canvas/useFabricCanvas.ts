@@ -11,7 +11,8 @@ import {
   MIN_ZOOM,
   ZOOM_STEP,
 } from "@/lib/constants";
-import { redoCanvas, undoCanvas } from "@/lib/fabric/history";
+import { redoCanvas, runWithoutHistory, undoCanvas } from "@/lib/fabric/history";
+import { toProjectFile } from "@/lib/fabric/serialize";
 import { clamp, isTypingTarget } from "@/lib/utils";
 import { useWhiteboardStore } from "@/stores/useWhiteboardStore";
 import type { CanvasApi, Tool } from "@/types/whiteboard";
@@ -115,6 +116,7 @@ export function useFabricCanvas({
   const toolRef = useRef(activeTool);
   const spaceRef = useRef(false);
   const pointerRef = useRef(true);
+  const themeRef = useRef(theme);
   const onReadyRef = useRef(onReady);
   const interactionRef = useRef<CanvasInteraction>({
     spaceDown: false,
@@ -196,13 +198,53 @@ export function useFabricCanvas({
       setZoom: (value) => applyZoom(value),
       getZoom: () => canvas.getZoom(),
       clearCanvas: () => {
-        const objects = canvas.getObjects();
-        if (objects.length > 0) canvas.remove(...objects);
-        canvas.discardActiveObject();
-        canvas.requestRenderAll();
+        // A confirmed reset is a fresh start, not an undoable edit.
+        void runWithoutHistory(() => {
+          const objects = canvas.getObjects();
+          if (objects.length > 0) canvas.remove(...objects);
+          canvas.discardActiveObject();
+          canvas.requestRenderAll();
+        });
       },
       undo: () => undoCanvas(),
       redo: () => redoCanvas(),
+      getProjectFile: () => toProjectFile(canvas),
+      loadProjectFile: async (project) => {
+        await runWithoutHistory(async () => {
+          await canvas.loadFromJSON(
+            project.canvas as Record<string, unknown>,
+          );
+          // The project format deliberately excludes the theme background.
+          canvas.backgroundColor =
+            themeRef.current === "dark" ? CANVAS_DARK : CANVAS_LIGHT;
+          canvas.discardActiveObject();
+          canvas.requestRenderAll();
+        });
+        useWhiteboardStore.getState().setActiveTool("select");
+      },
+      exportImage: ({ format, background, scale }) => {
+        const previousBackground = canvas.backgroundColor;
+        // JPEG has no alpha channel, so a "background off" JPEG falls back to
+        // white rather than a black rectangle.
+        if (!background) {
+          canvas.backgroundColor = format === "jpeg" ? "#ffffff" : "";
+        }
+
+        try {
+          if (format === "svg") return canvas.toSVG();
+          return canvas.toDataURL({
+            format,
+            multiplier: scale,
+            quality: 0.95,
+            enableRetinaScaling: false,
+            filter: (object) =>
+              !(object as { preview?: boolean }).preview,
+          });
+        } finally {
+          canvas.backgroundColor = previousBackground;
+          canvas.requestRenderAll();
+        }
+      },
     };
 
     onReadyRef.current?.(api);
@@ -313,6 +355,7 @@ export function useFabricCanvas({
 
   // Keep the canvas background in sync with the active theme.
   useEffect(() => {
+    themeRef.current = theme;
     const canvas = fabricRef.current;
     if (!canvas) return;
     canvas.backgroundColor = theme === "dark" ? CANVAS_DARK : CANVAS_LIGHT;
@@ -330,8 +373,9 @@ export function useFabricCanvas({
       if (event.code !== "Space" || event.repeat) return;
       if (isTypingTarget(event.target)) return;
 
-      const { sidebarOpen, helpOpen } = useWhiteboardStore.getState();
-      if (sidebarOpen || helpOpen) return;
+      const { sidebarOpen, helpOpen, exportOpen } =
+        useWhiteboardStore.getState();
+      if (sidebarOpen || helpOpen || exportOpen) return;
 
       if (event.target instanceof HTMLElement) {
         const control = event.target.closest(

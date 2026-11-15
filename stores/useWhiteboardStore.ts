@@ -36,6 +36,9 @@ interface WhiteboardState {
   helpOpen: boolean;
   setHelpOpen: (open: boolean) => void;
 
+  exportOpen: boolean;
+  setExportOpen: (open: boolean) => void;
+
   style: StyleSettings;
   setStyle: (patch: Partial<StyleSettings>) => void;
   setStroke: (stroke: string) => void;
@@ -70,6 +73,13 @@ export const useWhiteboardStore = create<WhiteboardState>((set) => ({
     set((state) => ({
       helpOpen,
       sidebarOpen: helpOpen ? false : state.sidebarOpen,
+    })),
+
+  exportOpen: false,
+  setExportOpen: (exportOpen) =>
+    set((state) => ({
+      exportOpen,
+      sidebarOpen: exportOpen ? false : state.sidebarOpen,
     })),
 
   style: { ...DEFAULT_STYLE },

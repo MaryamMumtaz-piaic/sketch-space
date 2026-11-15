@@ -6,13 +6,15 @@ import { useTheme } from "next-themes";
 import { useDrawingTools } from "@/components/canvas/useDrawingTools";
 import { useCanvasHistory } from "@/components/canvas/useCanvasHistory";
 import { useFabricCanvas } from "@/components/canvas/useFabricCanvas";
+import { usePersistence } from "@/components/canvas/usePersistence";
 import type { CanvasApi } from "@/types/whiteboard";
 
 interface CanvasStageProps {
   onReady?: (api: CanvasApi | null) => void;
+  onNotify?: (message: string) => void;
 }
 
-export function CanvasStage({ onReady }: CanvasStageProps) {
+export function CanvasStage({ onReady, onNotify }: CanvasStageProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const { resolvedTheme } = useTheme();
@@ -31,6 +33,11 @@ export function CanvasStage({ onReady }: CanvasStageProps) {
   useDrawingTools({
     canvas,
     interactionRef,
+  });
+  usePersistence({
+    canvas,
+    theme,
+    onNotify,
   });
 
   return (

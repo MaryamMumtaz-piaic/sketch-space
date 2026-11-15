@@ -29,6 +29,17 @@ export interface StyleSettings {
   strokeAuto: boolean;
 }
 
+export type ExportFormat = "png" | "jpeg" | "svg";
+export type ExportScale = 1 | 2 | 3;
+
+export interface ExportOptions {
+  format: ExportFormat;
+  /** Include the current theme's canvas colour behind the drawing. */
+  background: boolean;
+  /** Pixel multiplier. Ignored for SVG. */
+  scale: ExportScale;
+}
+
 /** Imperative handle exposed by the canvas to the rest of the UI. */
 export interface CanvasApi {
   zoomIn: () => void;
@@ -39,14 +50,19 @@ export interface CanvasApi {
   clearCanvas: () => void;
   undo: () => void;
   redo: () => void;
+  /** Snapshot the current scene as a portable project file. */
+  getProjectFile: () => ProjectFile;
+  /** Replace the scene with a validated project file. */
+  loadProjectFile: (project: ProjectFile) => Promise<void>;
+  /** Render the drawing (no UI or selection handles) to a data URL or SVG. */
+  exportImage: (options: ExportOptions) => string;
 }
 
 export interface ProjectFile {
-  type: "sketchspace";
+  type: "whiteboard";
   version: 1;
-  name?: string;
-  createdAt: string;
-  updatedAt: string;
-  /** Fabric canvas JSON, stored as-is. */
+  source: "sketch-space";
+  savedAt: string;
+  /** Fabric canvas JSON, stored as-is (no theme background). */
   canvas: unknown;
 }

@@ -90,9 +90,9 @@ export function HelpDialog() {
         </section>
 
         <p className="rounded-xl border border-line bg-background/50 p-3 text-[11px] leading-relaxed text-muted">
-          <span className="font-semibold text-foreground">Day 3 preview:</span>{" "}
-          selection styling, soft erasing and undo / redo are live. Saving,
-          exports and sharing arrive over the next few days.
+          <span className="font-semibold text-foreground">Day 4 preview:</span>{" "}
+          your board autosaves in this browser, and project files plus PNG,
+          JPEG and SVG exports are live. Share links arrive next.
         </p>
       </div>
     </Dialog>

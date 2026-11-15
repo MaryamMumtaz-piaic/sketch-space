@@ -193,60 +193,62 @@
 
 ---
 
-## Day 4 — Save, open, export, reset
+## Day 4 — Save, open, export, reset ✅
+
+> Completed 15 Nov 2026. Summary: [day-4.md](./day-4.md).
 
 ### Project format
 
-- [ ] Add `ProjectFile` type with `type`, `version`, `source`, `savedAt`, `canvas`
-- [ ] `serialize.ts` — canvas → project file
-- [ ] `serialize.ts` — project file → canvas
-- [ ] Validate `type` and `version` before loading
-- [ ] Friendly error for invalid files
+- [x] Add `ProjectFile` type with `type`, `version`, `source`, `savedAt`, `canvas`
+- [x] `serialize.ts` — canvas → project file
+- [x] `serialize.ts` — project file → canvas
+- [x] Validate `type` and `version` before loading
+- [x] Friendly error for invalid files
 
 ### Save and autosave
 
-- [ ] Save Project downloads a `.json` file
-- [ ] Save Project also writes to `localStorage`
-- [ ] Autosave to `localStorage` with ~500 ms debounce
-- [ ] Load autosaved drawing on startup
-- [ ] Loading order: share link → autosave → empty canvas
-- [ ] Catch `localStorage` quota errors and warn the user
-- [ ] Refresh the page and confirm the drawing is restored
+- [x] Save Project downloads a `.json` file
+- [x] Save Project also writes to `localStorage`
+- [x] Autosave to `localStorage` with ~500 ms debounce
+- [x] Load autosaved drawing on startup
+- [x] Loading order: share link → autosave → empty canvas
+- [x] Catch `localStorage` quota errors and warn the user
+- [x] Refresh the page and confirm the drawing is restored
 
 ### Open file
 
-- [ ] Open File button and hidden file input
-- [ ] Accept `.json` files only
-- [ ] Load valid file into the canvas
-- [ ] Show error for invalid or corrupted files
+- [x] Open File button and hidden file input
+- [x] Accept `.json` files only
+- [x] Load valid file into the canvas
+- [x] Show error for invalid or corrupted files
 
 ### Reset
 
 - [x] Reset Canvas opens an "Are you sure?" confirm dialog
 - [x] Confirm clears all objects
-- [ ] Confirm clears the autosave
-- [ ] Cancel leaves the drawing untouched
+- [x] Confirm clears the autosave
+- [x] Cancel leaves the drawing untouched
 
 ### Export
 
-- [ ] Export dialog UI
-- [ ] Format selector: PNG / JPEG / SVG
-- [ ] Background toggle (on / off)
-- [ ] Scale selector: 1x / 2x / 3x
-- [ ] Defaults: PNG, background ON, 2x
-- [ ] Export filenames `sketchspace-YYYY-MM-DD.png` / `.jpg` / `.svg`
-- [ ] Background ON matches the current theme colour
-- [ ] PNG export works
-- [ ] JPEG export works
-- [ ] SVG export works
-- [ ] Export excludes selection handles, toolbar and all UI
-- [ ] Open each exported file and confirm it is correct
-- [ ] Export a transparent PNG with background OFF
+- [x] Export dialog UI
+- [x] Format selector: PNG / JPEG / SVG
+- [x] Background toggle (on / off)
+- [x] Scale selector: 1x / 2x / 3x
+- [x] Defaults: PNG, background ON, 2x
+- [x] Export filenames `sketchspace-YYYY-MM-DD.png` / `.jpg` / `.svg`
+- [x] Background ON matches the current theme colour
+- [x] PNG export works
+- [x] JPEG export works
+- [x] SVG export works
+- [x] Export excludes selection handles, toolbar and all UI
+- [x] Open each exported file and confirm it is correct
+- [x] Export a transparent PNG with background OFF
 
 ### Ship Day 4
 
-- [ ] Commit: `feat: add save, open, autosave, reset and export`
-- [ ] Push and test download/open on the live link
+- [x] Commit: `feat: add save, open, autosave, reset and export`
+- [x] Push only; the live link stays on Day 1 until the final release (see `AGENTS.md`)
 
 ---
 

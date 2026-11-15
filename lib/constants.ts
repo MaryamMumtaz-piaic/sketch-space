@@ -19,6 +19,9 @@ export const ZOOM_STEP = 1.2;
 
 export const STORAGE_KEY = "sketchspace:drawing:v1";
 
+/** Autosave after the scene has been quiet for this long. */
+export const AUTOSAVE_DELAY = 500;
+
 export const STROKE_WIDTHS = [
   { label: "Thin", value: 1 },
   { label: "Medium", value: 2 },

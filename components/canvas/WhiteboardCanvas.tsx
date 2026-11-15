@@ -14,16 +14,17 @@ const CanvasStage = dynamic(
 
 interface WhiteboardCanvasProps {
   onReady?: (api: CanvasApi | null) => void;
+  onNotify?: (message: string) => void;
 }
 
 /**
  * Fabric touches `window` during setup, so the canvas module is always loaded
  * on the client only (SSR-safe).
  */
-export function WhiteboardCanvas({ onReady }: WhiteboardCanvasProps) {
+export function WhiteboardCanvas({ onReady, onNotify }: WhiteboardCanvasProps) {
   return (
     <div className="absolute inset-0">
-      <CanvasStage onReady={onReady} />
+      <CanvasStage onReady={onReady} onNotify={onNotify} />
     </div>
   );
 }

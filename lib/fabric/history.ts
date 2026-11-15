@@ -25,6 +25,25 @@ export interface HistoryState {
  */
 let activeHistory: CanvasHistory | null = null;
 
+type SnapshotListener = () => void;
+
+/**
+ * Autosave listens here instead of tapping every canvas event, so style edits,
+ * undo and redo all trigger a save at the same point.
+ */
+const snapshotListeners = new Set<SnapshotListener>();
+
+export function subscribeHistorySnapshots(listener: SnapshotListener) {
+  snapshotListeners.add(listener);
+  return () => {
+    snapshotListeners.delete(listener);
+  };
+}
+
+function notifySnapshotListeners() {
+  for (const listener of snapshotListeners) listener();
+}
+
 export function undoCanvas() {
   void activeHistory?.undo();
 }
@@ -162,6 +181,7 @@ export class CanvasHistory {
     if (this.snapshots.length > HISTORY_LIMIT) this.snapshots.shift();
     this.index = this.snapshots.length - 1;
     this.emit();
+    notifySnapshotListeners();
   }
 
   async undo() {
@@ -169,6 +189,7 @@ export class CanvasHistory {
     this.index -= 1;
     await this.restore(this.snapshots[this.index]);
     this.emit();
+    notifySnapshotListeners();
   }
 
   async redo() {
@@ -176,6 +197,7 @@ export class CanvasHistory {
     this.index += 1;
     await this.restore(this.snapshots[this.index]);
     this.emit();
+    notifySnapshotListeners();
   }
 
   get canUndo() {

@@ -4,6 +4,7 @@ import { useCallback, useEffect, useState } from "react";
 
 import { WhiteboardCanvas } from "@/components/canvas/WhiteboardCanvas";
 import { ConfirmDialog } from "@/components/dialogs/ConfirmDialog";
+import { ExportDialog } from "@/components/dialogs/ExportDialog";
 import { HelpDialog } from "@/components/dialogs/HelpDialog";
 import { Sidebar } from "@/components/sidebar/Sidebar";
 import { StylePanel } from "@/components/toolbar/StylePanel";
@@ -12,6 +13,7 @@ import { TopBar } from "@/components/topbar/TopBar";
 import { Toast } from "@/components/ui/Toast";
 import { ThemeStyleSync } from "@/components/whiteboard/ThemeStyleSync";
 import { useKeyboardShortcuts } from "@/hooks/useKeyboardShortcuts";
+import { clearAutosave } from "@/lib/persistence";
 import { useWhiteboardStore } from "@/stores/useWhiteboardStore";
 
 export function WhiteboardShell() {
@@ -40,15 +42,16 @@ export function WhiteboardShell() {
 
   const confirmReset = useCallback(() => {
     canvasApi?.clearCanvas();
+    clearAutosave();
     setResetOpen(false);
-    notify("Canvas cleared.");
+    notify("Canvas and autosave cleared.");
   }, [canvasApi, notify]);
 
   return (
     <main className="relative h-[100dvh] w-full overflow-hidden bg-canvas text-foreground">
       <ThemeStyleSync />
 
-      <WhiteboardCanvas onReady={setCanvasApi} />
+      <WhiteboardCanvas onReady={setCanvasApi} onNotify={notify} />
 
       <TopBar canvasApi={canvasApi} onShare={share} />
       <Toolbar />
@@ -56,6 +59,7 @@ export function WhiteboardShell() {
       <Sidebar onNotify={notify} onReset={() => setResetOpen(true)} />
 
       <HelpDialog />
+      <ExportDialog onNotify={notify} />
       <ConfirmDialog
         open={resetOpen}
         title="Reset canvas?"
