@@ -11,7 +11,7 @@ export const CANVAS_LIGHT = "#ffffff";
 export const CANVAS_DARK = "#121212";
 
 export const DEFAULT_STROKE_LIGHT = "#1e1e1e";
-export const DEFAULT_STROKE_DARK = "#e8e8ec";
+export const DEFAULT_STROKE_DARK = "#ffffff";
 
 export const MIN_ZOOM = 0.1;
 export const MAX_ZOOM = 30;
@@ -21,6 +21,9 @@ export const STORAGE_KEY = "sketchspace:drawing:v1";
 
 /** Autosave after the scene has been quiet for this long. */
 export const AUTOSAVE_DELAY = 500;
+
+/** Share links above this length are not practical for browsers and chat apps. */
+export const MAX_SHARE_URL_LENGTH = 30_000;
 
 export const STROKE_WIDTHS = [
   { label: "Thin", value: 1 },
@@ -55,6 +58,13 @@ export const STROKE_STYLES: { label: string; value: StrokeStyle }[] = [
   { label: "Dotted", value: "dotted" },
 ];
 
+/** Soft-eraser brush sizes, in scene pixels. */
+export const ERASER_WIDTHS = [
+  { label: "Small", value: 12 },
+  { label: "Medium", value: 24 },
+  { label: "Large", value: 40 },
+] as const;
+
 export const DEFAULT_STYLE: StyleSettings = {
   stroke: DEFAULT_STROKE_LIGHT,
   fill: null,
@@ -62,6 +72,7 @@ export const DEFAULT_STYLE: StyleSettings = {
   opacity: 100,
   strokeStyle: "solid",
   eraserMode: "object",
+  eraserWidth: 24,
   strokeAuto: true,
 };
 

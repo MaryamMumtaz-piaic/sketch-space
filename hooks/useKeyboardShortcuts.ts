@@ -45,6 +45,8 @@ export function useKeyboardShortcuts() {
           state.setHelpOpen(false);
         } else if (state.exportOpen) {
           state.setExportOpen(false);
+        } else if (state.shareOpen) {
+          state.setShareOpen(false);
         } else if (state.sidebarOpen) {
           state.setSidebarOpen(false);
         } else {
@@ -62,7 +64,14 @@ export function useKeyboardShortcuts() {
       }
 
       // Don't change tools underneath an open dialog or menu.
-      if (state.helpOpen || state.exportOpen || state.sidebarOpen) return;
+      if (
+        state.helpOpen ||
+        state.exportOpen ||
+        state.shareOpen ||
+        state.sidebarOpen
+      ) {
+        return;
+      }
 
       if (event.key === "?") {
         event.preventDefault();

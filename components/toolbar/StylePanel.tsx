@@ -4,6 +4,7 @@ import { Check } from "lucide-react";
 
 import {
   DRAWING_TOOLS,
+  ERASER_WIDTHS,
   FILL_COLORS,
   STROKE_COLORS,
   STROKE_STYLES,
@@ -60,10 +61,44 @@ export function StylePanel() {
               </button>
             ))}
           </div>
+
+          {style.eraserMode === "soft" ? (
+            <div className="mt-3">
+              <p className="mb-1.5 text-[11px] font-medium text-muted">
+                Brush size
+              </p>
+              <div className="grid grid-cols-3 gap-1 rounded-lg bg-background/60 p-1 ring-1 ring-line">
+                {ERASER_WIDTHS.map((size) => (
+                  <button
+                    key={size.value}
+                    type="button"
+                    aria-label={`${size.label} eraser`}
+                    aria-pressed={style.eraserWidth === size.value}
+                    onClick={() => setStyle({ eraserWidth: size.value })}
+                    className={cn(
+                      "grid h-7 place-items-center rounded-md transition-colors",
+                      style.eraserWidth === size.value
+                        ? "bg-accent-soft text-accent"
+                        : "text-foreground/60 hover:bg-accent-soft hover:text-accent",
+                    )}
+                  >
+                    <span
+                      className="rounded-full bg-current"
+                      style={{
+                        width: Math.max(5, size.value / 3.2),
+                        height: Math.max(5, size.value / 3.2),
+                      }}
+                    />
+                  </button>
+                ))}
+              </div>
+            </div>
+          ) : null}
+
           <p className="mt-2 text-[10px] leading-relaxed text-muted">
             {style.eraserMode === "object"
               ? "Object mode removes whole shapes with one click or drag."
-              : "Soft mode erases inside shapes without deleting them."}
+              : "Soft mode erases inside shapes without deleting them. The ring shows the brush size."}
           </p>
         </section>
       ) : (
@@ -92,7 +127,7 @@ export function StylePanel() {
                       size={12}
                       strokeWidth={3}
                       className={
-                        color.value === "#e8e8ec"
+                        color.value === "#ffffff"
                           ? "text-black/60"
                           : "text-white"
                       }

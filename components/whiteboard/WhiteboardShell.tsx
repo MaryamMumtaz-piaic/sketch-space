@@ -6,6 +6,7 @@ import { WhiteboardCanvas } from "@/components/canvas/WhiteboardCanvas";
 import { ConfirmDialog } from "@/components/dialogs/ConfirmDialog";
 import { ExportDialog } from "@/components/dialogs/ExportDialog";
 import { HelpDialog } from "@/components/dialogs/HelpDialog";
+import { ShareDialog } from "@/components/dialogs/ShareDialog";
 import { Sidebar } from "@/components/sidebar/Sidebar";
 import { StylePanel } from "@/components/toolbar/StylePanel";
 import { Toolbar } from "@/components/toolbar/Toolbar";
@@ -19,6 +20,7 @@ import { useWhiteboardStore } from "@/stores/useWhiteboardStore";
 export function WhiteboardShell() {
   const canvasApi = useWhiteboardStore((state) => state.canvasApi);
   const setCanvasApi = useWhiteboardStore((state) => state.setCanvasApi);
+  const setShareOpen = useWhiteboardStore((state) => state.setShareOpen);
   const [toast, setToast] = useState<string | null>(null);
   const [resetOpen, setResetOpen] = useState(false);
 
@@ -32,13 +34,7 @@ export function WhiteboardShell() {
 
   const notify = useCallback((message: string) => setToast(message), []);
 
-  const share = useCallback(
-    () =>
-      notify(
-        "Share links arrive on Day 5. Your canvas is ready for drawing now.",
-      ),
-    [notify],
-  );
+  const share = useCallback(() => setShareOpen(true), [setShareOpen]);
 
   const confirmReset = useCallback(() => {
     canvasApi?.clearCanvas();
@@ -56,10 +52,15 @@ export function WhiteboardShell() {
       <TopBar canvasApi={canvasApi} onShare={share} />
       <Toolbar />
       <StylePanel />
-      <Sidebar onNotify={notify} onReset={() => setResetOpen(true)} />
+      <Sidebar
+        onNotify={notify}
+        onShare={share}
+        onReset={() => setResetOpen(true)}
+      />
 
       <HelpDialog />
       <ExportDialog onNotify={notify} />
+      <ShareDialog onNotify={notify} />
       <ConfirmDialog
         open={resetOpen}
         title="Reset canvas?"

@@ -252,18 +252,20 @@
 
 ---
 
-## Day 5 — Share, theme, help, bonuses
+## Day 5 — Share, theme, help, bonuses ✅
+
+> Completed 15 Nov 2026. Summary: [day-5.md](./day-5.md).
 
 ### Share
 
-- [ ] Serialize the drawing for sharing
-- [ ] Compress with `LZString.compressToEncodedURIComponent`
-- [ ] Build `/#data=...` link
-- [ ] Copy link button + "Copied" toast
-- [ ] Decode `#data` on page load and rebuild the canvas
-- [ ] Validate share payload before loading
-- [ ] Fallback message + JSON download when the URL is too long (~30,000 chars)
-- [ ] Share link round trip: open in a new tab and compare drawings
+- [x] Serialize the drawing for sharing
+- [x] Compress with `LZString.compressToEncodedURIComponent`
+- [x] Build `/#data=...` link
+- [x] Copy link button + "Copied" toast
+- [x] Decode `#data` on page load and rebuild the canvas
+- [x] Validate share payload before loading
+- [x] Fallback message + JSON download when the URL is too long (~30,000 chars)
+- [x] Share link round trip: open in a new tab and compare drawings
 
 ### Theme
 
@@ -272,8 +274,8 @@
 - [x] Theme toggle in the sidebar
 - [x] Theme choice persists after refresh
 - [x] Canvas background follows the theme
-- [ ] New shapes use white stroke in dark mode and black in light mode
-- [ ] Existing shapes keep their colour when the theme changes
+- [x] New shapes use white stroke in dark mode and black in light mode
+- [x] Existing shapes keep their colour when the theme changes
 - [x] Accent stays violet in both themes
 - [x] Check there is no white flash on reload in dark mode
 
@@ -285,24 +287,24 @@
 
 ### Bonuses
 
-- [ ] Arrow binding: both endpoints can attach to shapes
-- [ ] Bound arrows follow the shape when it moves
-- [ ] Bound arrows update when the shape is resized
-- [ ] Arrow unbinds when an endpoint is moved away
-- [ ] Test arrow binding with multiple shapes and mixed resize
-- [ ] Pinch zoom on touch devices
-- [ ] Soft eraser polish (brush size, cursor, no artifacts)
+- [x] Arrow binding: both endpoints can attach to shapes
+- [x] Bound arrows follow the shape when it moves
+- [x] Bound arrows update when the shape is resized
+- [x] Arrow unbinds when an endpoint is moved away
+- [x] Test arrow binding with multiple shapes and mixed resize
+- [x] Pinch zoom on touch devices
+- [x] Soft eraser polish (brush size, cursor, no artifacts)
 
 ### Polish
 
-- [ ] Check desktop layouts at 1280px, 1440px and 1920px
-- [ ] Hover, focus and active states on all controls
-- [ ] Empty-canvas hint ("Pick a tool and start drawing")
-- [ ] App title, favicon and metadata complete
+- [x] Check desktop layouts at 1280px, 1440px and 1920px
+- [x] Hover, focus and active states on all controls
+- [x] Empty-canvas hint ("Pick a tool and start drawing")
+- [x] App title, favicon and metadata complete
 
 ### Ship Day 5
 
-- [ ] Commit: `feat: add share, theme, help and bonus features`
+- [x] Commit: `feat: add share, theme, help and bonus features`
 - [ ] Push and test share + theme on the live link
 
 ---

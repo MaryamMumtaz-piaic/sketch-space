@@ -37,6 +37,9 @@ function clientPoint(event: unknown) {
 export interface CanvasInteraction {
   spaceDown: boolean;
   panning: boolean;
+  pinching: boolean;
+  /** Set by the drawing hook so a pinch can cancel a drag preview. */
+  cancelPreview?: () => void;
 }
 
 function applyMode(
@@ -61,6 +64,7 @@ function applyCursor(
   tool: Tool,
   spaceDown: boolean,
   panning: boolean,
+  softEraser = false,
 ) {
   if (panning) {
     canvas.defaultCursor = "grabbing";
@@ -71,6 +75,13 @@ function applyCursor(
   if (spaceDown || tool === "hand") {
     canvas.defaultCursor = "grab";
     canvas.hoverCursor = "grab";
+    return;
+  }
+
+  // The soft eraser draws its own sized ring overlay instead.
+  if (tool === "eraser" && softEraser) {
+    canvas.defaultCursor = "none";
+    canvas.hoverCursor = "none";
     return;
   }
 
@@ -121,6 +132,12 @@ export function useFabricCanvas({
   const interactionRef = useRef<CanvasInteraction>({
     spaceDown: false,
     panning: false,
+    pinching: false,
+  });
+  const pinchRef = useRef({
+    active: false,
+    distance: 0,
+    zoom: 1,
   });
   const [spaceDown, setSpaceDown] = useState(false);
   const [ready, setReady] = useState(false);
@@ -280,7 +297,105 @@ export function useFabricCanvas({
     const upperCanvas = canvas.upperCanvasEl;
     upperCanvas.addEventListener("wheel", handleWheel, { passive: false });
 
+    // Pinch zoom is implemented manually: Fabric v6 no longer ships a reliable
+    // gesture module, and the native touch events let us cancel an in-progress
+    // shape preview before the second finger lands.
+    const touchPoint = (touch: Touch) => {
+      const rect = upperCanvas.getBoundingClientRect();
+      return new Point(touch.clientX - rect.left, touch.clientY - rect.top);
+    };
+
+    const touchDistance = (first: Touch, second: Touch) =>
+      Math.hypot(
+        second.clientX - first.clientX,
+        second.clientY - first.clientY,
+      );
+
+    const handleTouchStart = (event: TouchEvent) => {
+      if (event.touches.length !== 2) return;
+      event.preventDefault();
+
+      const [first, second] = [event.touches[0], event.touches[1]];
+      pinchRef.current = {
+        active: true,
+        distance: Math.max(1, touchDistance(first, second)),
+        zoom: canvas.getZoom(),
+      };
+      interactionRef.current.pinching = true;
+      interactionRef.current.cancelPreview?.();
+      canvas.isDrawingMode = false;
+      canvas.selection = false;
+      canvas.skipTargetFind = true;
+      canvas.defaultCursor = "grabbing";
+      canvas.hoverCursor = "grabbing";
+    };
+
+    const handleTouchMove = (event: TouchEvent) => {
+      if (!pinchRef.current.active || event.touches.length !== 2) return;
+      event.preventDefault();
+
+      const [first, second] = [event.touches[0], event.touches[1]];
+      const distance = Math.max(1, touchDistance(first, second));
+      const midpoint = touchPoint(first).add(touchPoint(second)).scalarDivide(2);
+      const next = clamp(
+        pinchRef.current.zoom * (distance / pinchRef.current.distance),
+        MIN_ZOOM,
+        MAX_ZOOM,
+      );
+
+      canvas.zoomToPoint(midpoint, next);
+      canvas.requestRenderAll();
+      setZoom(next);
+    };
+
+    const endPinch = () => {
+      pinchRef.current.active = false;
+      interactionRef.current.pinching = false;
+      // Drop any preview Fabric started for the fingers that just lifted.
+      interactionRef.current.cancelPreview?.();
+      applyMode(
+        canvas,
+        toolRef.current,
+        spaceRef.current,
+        false,
+        useWhiteboardStore.getState().style.eraserMode === "soft",
+      );
+      applyCursor(
+        canvas,
+        toolRef.current,
+        spaceRef.current,
+        false,
+        useWhiteboardStore.getState().style.eraserMode === "soft",
+      );
+      setZoom(canvas.getZoom());
+      canvas.requestRenderAll();
+    };
+
+    const handleTouchEnd = (event: TouchEvent) => {
+      if (!interactionRef.current.pinching) return;
+      if (event.touches.length < 2) pinchRef.current.active = false;
+      // Wait for every finger to lift so the remaining one cannot start a
+      // stray pencil stroke or selection drag.
+      if (event.touches.length === 0) endPinch();
+    };
+
+    const handleTouchCancel = () => {
+      if (interactionRef.current.pinching) endPinch();
+    };
+
+    upperCanvas.addEventListener("touchstart", handleTouchStart, {
+      passive: false,
+    });
+    upperCanvas.addEventListener("touchmove", handleTouchMove, {
+      passive: false,
+    });
+    upperCanvas.addEventListener("touchend", handleTouchEnd, {
+      passive: false,
+    });
+    upperCanvas.addEventListener("touchcancel", handleTouchCancel);
+
     const handleMouseDown = (opt: { e: unknown }) => {
+      if (interactionRef.current.pinching) return;
       const event = clientPoint(opt.e);
       const panGesture =
         spaceRef.current || toolRef.current === "hand" || event.button === 1;
@@ -294,12 +409,18 @@ export function useFabricCanvas({
       interactionRef.current.panning = true;
       canvas.selection = false;
       canvas.skipTargetFind = true;
-      applyCursor(canvas, toolRef.current, spaceRef.current, true);
+      applyCursor(
+        canvas,
+        toolRef.current,
+        spaceRef.current,
+        true,
+        useWhiteboardStore.getState().style.eraserMode === "soft",
+      );
       event.preventDefault?.();
     };
 
     const handleMouseMove = (opt: { e: unknown }) => {
-      if (!panRef.current.active) return;
+      if (!panRef.current.active || interactionRef.current.pinching) return;
       const event = clientPoint(opt.e);
       const viewport = canvas.viewportTransform;
       if (!viewport) return;
@@ -322,7 +443,13 @@ export function useFabricCanvas({
         false,
         useWhiteboardStore.getState().style.eraserMode === "soft",
       );
-      applyCursor(canvas, toolRef.current, spaceRef.current, false);
+      applyCursor(
+        canvas,
+        toolRef.current,
+        spaceRef.current,
+        false,
+        useWhiteboardStore.getState().style.eraserMode === "soft",
+      );
     };
 
     canvas.on("mouse:down", handleMouseDown);
@@ -336,6 +463,10 @@ export function useFabricCanvas({
       observer.disconnect();
       container.removeEventListener("dragstart", preventNativeDrag);
       upperCanvas.removeEventListener("wheel", handleWheel);
+      upperCanvas.removeEventListener("touchstart", handleTouchStart);
+      upperCanvas.removeEventListener("touchmove", handleTouchMove);
+      upperCanvas.removeEventListener("touchend", handleTouchEnd);
+      upperCanvas.removeEventListener("touchcancel", handleTouchCancel);
       canvas.off("mouse:down", handleMouseDown);
       canvas.off("mouse:move", handleMouseMove);
       canvas.off("mouse:up", handleMouseUp);
@@ -343,7 +474,12 @@ export function useFabricCanvas({
       onReadyRef.current?.(null);
       fabricRef.current = null;
       panRef.current.active = false;
-      interactionRef.current = { spaceDown: false, panning: false };
+      pinchRef.current = { active: false, distance: 0, zoom: 1 };
+      interactionRef.current = {
+        spaceDown: false,
+        panning: false,
+        pinching: false,
+      };
       setReady(false);
       if (process.env.NODE_ENV !== "production") {
         (window as Window & { __sketchspace?: Canvas }).__sketchspace =
@@ -373,9 +509,9 @@ export function useFabricCanvas({
       if (event.code !== "Space" || event.repeat) return;
       if (isTypingTarget(event.target)) return;
 
-      const { sidebarOpen, helpOpen, exportOpen } =
+      const { sidebarOpen, helpOpen, exportOpen, shareOpen } =
         useWhiteboardStore.getState();
-      if (sidebarOpen || helpOpen || exportOpen) return;
+      if (sidebarOpen || helpOpen || exportOpen || shareOpen) return;
 
       if (event.target instanceof HTMLElement) {
         const control = event.target.closest(
@@ -439,7 +575,13 @@ export function useFabricCanvas({
       panRef.current.active,
       eraserMode === "soft",
     );
-    applyCursor(canvas, activeTool, spaceDown, panRef.current.active);
+    applyCursor(
+      canvas,
+      activeTool,
+      spaceDown,
+      panRef.current.active,
+      eraserMode === "soft",
+    );
   }, [activeTool, spaceDown, eraserMode]);
 
   return { fabricRef, interactionRef, ready };

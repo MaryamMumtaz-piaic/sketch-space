@@ -19,13 +19,18 @@ const patrickHand = Patrick_Hand({
   display: "swap",
 });
 
+const APP_URL = "https://maryam-whiteboard.vercel.app";
+
 export const metadata: Metadata = {
+  metadataBase: new URL(APP_URL),
   title: {
     default: `${APP_NAME} — Infinite Whiteboard`,
     template: `%s · ${APP_NAME}`,
   },
   description: APP_DESCRIPTION,
   applicationName: APP_NAME,
+  creator: "Maryam Mumtaz",
+  authors: [{ name: "Maryam Mumtaz", url: APP_URL }],
   keywords: [
     "whiteboard",
     "infinite canvas",
@@ -33,19 +38,58 @@ export const metadata: Metadata = {
     "diagram",
     "excalidraw",
     "next.js",
+    "collaboration",
   ],
-  authors: [{ name: "Maryam Mumtaz" }],
+  alternates: {
+    canonical: "/",
+  },
+  icons: {
+    icon: "/icon.svg",
+    apple: "/apple-icon.svg",
+  },
   openGraph: {
     title: `${APP_NAME} — Infinite Whiteboard`,
     description: APP_DESCRIPTION,
+    siteName: APP_NAME,
     type: "website",
+    url: "/",
+    images: [
+      {
+        url: "/icon.svg",
+        width: 64,
+        height: 64,
+        alt: `${APP_NAME} logo`,
+      },
+    ],
+  },
+  twitter: {
+    card: "summary",
+    title: `${APP_NAME} — Infinite Whiteboard`,
+    description: APP_DESCRIPTION,
+    images: ["/icon.svg"],
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
+  appleWebApp: {
+    capable: true,
+    title: APP_NAME,
+    statusBarStyle: "default",
+  },
+  formatDetection: {
+    telephone: false,
   },
 };
 
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
-  themeColor: "#ffffff",
+  colorScheme: "light dark",
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
+    { media: "(prefers-color-scheme: dark)", color: "#121212" },
+  ],
 };
 
 export default function RootLayout({

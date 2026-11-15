@@ -2,7 +2,7 @@
 
 A fast, Excalidraw-style infinite whiteboard built with **Next.js 15**, **TypeScript**, **Tailwind CSS**, **Fabric.js**, **Zustand** and **next-themes**.
 
-SketchSpace is being built over one week. **Days 1–4 are complete:** the app shell, theme system, infinite canvas, the full drawing toolset, selection styling, soft erasing, undo/redo, project saving, autosave and PNG / JPEG / SVG export are live. Share links and the bonus round follow next.
+SketchSpace is being built over one week. **Days 1–5 are complete:** the app shell, theme system, infinite canvas, the full drawing toolset, selection styling, both erasers, undo/redo, project saving, autosave, PNG / JPEG / SVG export, compressed share links, arrow binding and pinch zoom are live. Testing and the final polish round follow next.
 
 ## Live demo
 
@@ -61,10 +61,21 @@ SketchSpace is being built over one week. **Days 1–4 are complete:** the app s
 - Exports contain only the drawing — never the toolbar, dialogs or selection handles
 - Quota-safe autosave: a full `localStorage` shows a warning instead of breaking the app
 
+### Sharing and touch
+
+- **Share Link** compresses the whole drawing into a `#data=` URL with lz-string
+- Share links are validated before loading, with a friendly fallback to the autosave
+- Boards whose link would pass 30,000 characters offer a `.json` download instead
+- Arrows bind to shapes at both ends and follow moves, resizes and rotations
+- Dragging an arrow detaches it; deleting a shape leaves its arrows unbounded
+- Two-finger **pinch zoom** on touch screens, clamped to 10%–3000%
+- Soft eraser with three brush sizes and a ring cursor that matches the brush
+- "Pick a tool and start drawing" hint on an empty board
+
 ## Planned features
 
-- Share links compressed with lz-string
-- Arrow binding to shapes and pinch zoom
+- Testing pass across Chrome, Edge and Firefox
+- Final docs, license and release deploy
 
 ## Tech stack
 
@@ -151,6 +162,7 @@ docs/                    plan, tasks and reports
 - [Day 2 summary](docs/day-2.md)
 - [Day 3 summary](docs/day-3.md)
 - [Day 4 summary](docs/day-4.md)
+- [Day 5 summary](docs/day-5.md)
 - [Project plan](docs/plan.md)
 - [Task checklist](docs/tasks.md)
 - [Study notes](docs/notes.md)

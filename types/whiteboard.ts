@@ -26,6 +26,8 @@ export interface StyleSettings {
   opacity: number;
   strokeStyle: StrokeStyle;
   eraserMode: EraserMode;
+  /** Soft-eraser brush diameter in scene pixels. */
+  eraserWidth: number;
   strokeAuto: boolean;
 }
 

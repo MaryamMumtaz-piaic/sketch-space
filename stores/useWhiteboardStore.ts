@@ -39,12 +39,17 @@ interface WhiteboardState {
   exportOpen: boolean;
   setExportOpen: (open: boolean) => void;
 
+  shareOpen: boolean;
+  setShareOpen: (open: boolean) => void;
+
   style: StyleSettings;
   setStyle: (patch: Partial<StyleSettings>) => void;
   setStroke: (stroke: string) => void;
   setFill: (fill: string | null) => void;
   hydrateStyle: (patch: Partial<StyleSettings>) => void;
   applyThemeStroke: (theme: "light" | "dark") => void;
+  /** Bumped whenever the theme rewrites the default stroke. */
+  themeRevision: number;
 }
 
 export const useWhiteboardStore = create<WhiteboardState>((set) => ({
@@ -72,6 +77,7 @@ export const useWhiteboardStore = create<WhiteboardState>((set) => ({
   setHelpOpen: (helpOpen) =>
     set((state) => ({
       helpOpen,
+      shareOpen: helpOpen ? false : state.shareOpen,
       sidebarOpen: helpOpen ? false : state.sidebarOpen,
     })),
 
@@ -79,7 +85,15 @@ export const useWhiteboardStore = create<WhiteboardState>((set) => ({
   setExportOpen: (exportOpen) =>
     set((state) => ({
       exportOpen,
+      shareOpen: exportOpen ? false : state.shareOpen,
       sidebarOpen: exportOpen ? false : state.sidebarOpen,
+    })),
+
+  shareOpen: false,
+  setShareOpen: (shareOpen) =>
+    set((state) => ({
+      shareOpen,
+      sidebarOpen: shareOpen ? false : state.sidebarOpen,
     })),
 
   style: { ...DEFAULT_STYLE },
@@ -90,13 +104,21 @@ export const useWhiteboardStore = create<WhiteboardState>((set) => ({
       style: { ...state.style, stroke, strokeAuto: false },
     })),
   setFill: (fill) => set((state) => ({ style: { ...state.style, fill } })),
-  // Used when the panel mirrors an existing object instead of the user.
+  // Used when the panel mirrors an existing object instead of the user. A
+  // stroke that still matches the theme default keeps following the theme, so
+  // switching light/dark continues to affect new shapes.
   hydrateStyle: (patch) =>
     set((state) => ({
       style: {
         ...state.style,
         ...patch,
-        ...(patch.stroke ? { strokeAuto: false } : {}),
+        ...(patch.stroke
+          ? {
+              strokeAuto:
+                patch.stroke === DEFAULT_STROKE_LIGHT ||
+                patch.stroke === DEFAULT_STROKE_DARK,
+            }
+          : {}),
       },
     })),
   applyThemeStroke: (theme) =>
@@ -105,6 +127,10 @@ export const useWhiteboardStore = create<WhiteboardState>((set) => ({
       const stroke =
         theme === "dark" ? DEFAULT_STROKE_DARK : DEFAULT_STROKE_LIGHT;
       if (state.style.stroke === stroke) return state;
-      return { style: { ...state.style, stroke } };
+      return {
+        style: { ...state.style, stroke },
+        themeRevision: state.themeRevision + 1,
+      };
     }),
+  themeRevision: 0,
 }));

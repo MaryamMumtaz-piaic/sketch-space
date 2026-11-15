@@ -16,10 +16,21 @@ import { ACCENT } from "@/lib/constants";
 import type { StyleSettings } from "@/types/whiteboard";
 
 /**
- * Persist the nanoid we attach to every object, plus the flags the soft eraser
- * and the history need to survive a save / load round-trip.
+ * Persist the nanoid we attach to every object, plus the flags the soft eraser,
+ * arrow bindings and the history need to survive a save / load round-trip.
  */
-FabricObject.customProperties = ["id", "erasable", "preview"];
+FabricObject.customProperties = [
+  "id",
+  "erasable",
+  "preview",
+  "arrow",
+  "bindStart",
+  "bindEnd",
+  "arrowStartX",
+  "arrowStartY",
+  "arrowEndX",
+  "arrowEndY",
+];
 
 /** Excalidraw-style violet selection instead of Fabric's default blue. */
 FabricObject.ownDefaults.borderColor = ACCENT;

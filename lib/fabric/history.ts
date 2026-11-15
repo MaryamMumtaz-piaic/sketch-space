@@ -63,6 +63,18 @@ export function captureHistorySnapshot() {
 }
 
 /**
+ * Pause snapshots while an internal repair (such as refreshing a bound arrow)
+ * replaces objects. Pair every call with `resumeHistory()`.
+ */
+export function suspendHistory() {
+  activeHistory?.suspend();
+}
+
+export function resumeHistory() {
+  activeHistory?.resume();
+}
+
+/**
  * Run an external mutation (loading a file or a share link) without recording
  * it, then capture the new state as the fresh baseline.
  */

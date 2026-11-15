@@ -22,10 +22,10 @@ import {
   captureHistorySnapshot,
   requestHistorySnapshot,
 } from "@/lib/fabric/history";
+import { createBoundArrow } from "@/lib/fabric/arrows";
 import {
   boundsBetween,
   completePreview,
-  createArrow,
   createArrowhead,
   createLine,
   createText,
@@ -95,9 +95,11 @@ export function useDrawingTools({
   const setHasSelection = useWhiteboardStore(
     (state) => state.setHasSelection,
   );
+  const themeRevision = useWhiteboardStore((state) => state.themeRevision);
 
   const toolRef = useRef(activeTool);
   const styleRef = useRef<StyleSettings>(style);
+  const themeRevisionRef = useRef(themeRevision);
   const previewRef = useRef<PreviewState>({ ...EMPTY_PREVIEW });
   const erasingRef = useRef(false);
 
@@ -125,7 +127,8 @@ export function useDrawingTools({
     if (!canvas || style.eraserMode !== "soft") return;
     const eraser = new EraserBrush(canvas);
     eraser.color = "rgba(0, 0, 0, 1)";
-    eraser.width = Math.max(12, style.strokeWidth * 6);
+    eraser.width = Math.max(6, style.eraserWidth);
+    eraser.decimate = 2;
 
     const offEnd = eraser.on("end", (event) => {
       // Commit manually so the snapshot lands after the clip paths exist.
@@ -145,7 +148,7 @@ export function useDrawingTools({
         canvas.freeDrawingBrush = new PencilBrush(canvas);
       }
     };
-  }, [canvas, style.eraserMode, style.strokeWidth]);
+  }, [canvas, style.eraserMode, style.eraserWidth]);
 
   // Mirror the active selection back into the style panel.
   useEffect(() => {
@@ -173,9 +176,14 @@ export function useDrawingTools({
 
   // Panel changes apply to the current selection as well as the next shape.
   // Applying is idempotent, so the mirror write above causes no extra work, and
-  // only a real change becomes an undo step.
+  // only a real change becomes an undo step. A theme switch also rewrites
+  // `style.stroke`, but existing shapes must keep their own colour.
   useEffect(() => {
     if (!canvas) return;
+    if (themeRevisionRef.current !== themeRevision) {
+      themeRevisionRef.current = themeRevision;
+      return;
+    }
     const active = canvas.getActiveObjects();
     if (active.length === 0) return;
 
@@ -186,14 +194,15 @@ export function useDrawingTools({
     );
     canvas.requestRenderAll();
     if (changed) requestHistorySnapshot();
-  }, [canvas, style]);
+  }, [canvas, style, themeRevision]);
 
   useEffect(() => {
     if (!canvas) return;
 
+    const interaction = interactionRef.current;
     const currentStyle = () => styleRef.current;
     const isBusy = () =>
-      interactionRef.current.panning || interactionRef.current.spaceDown;
+      interaction.panning || interaction.spaceDown || interaction.pinching;
 
     const resetPreview = () => {
       const preview = previewRef.current;
@@ -324,7 +333,7 @@ export function useDrawingTools({
         if (preview.head) canvas.remove(preview.head);
         preview.shaft = null;
         preview.head = null;
-        const arrow = createArrow(start, end, currentStyle());
+        const arrow = createBoundArrow(canvas, start, end, currentStyle());
         canvas.add(arrow);
         canvas.setActiveObject(arrow);
       } else if (preview.object) {
@@ -340,6 +349,13 @@ export function useDrawingTools({
     };
 
     const handleMouseDown = (opt: { e: TPointerEvent }) => {
+      // Fabric turns touches into mouse events before our own touch handlers
+      // run, so a second finger would otherwise start a stray shape preview.
+      const touches = (opt.e as unknown as { touches?: TouchList }).touches;
+      if (touches && touches.length > 1) {
+        interaction.cancelPreview?.();
+        return;
+      }
       if (isBusy()) return;
       if (opt.e instanceof MouseEvent && opt.e.button !== 0) return;
       const tool = toolRef.current;
@@ -381,6 +397,7 @@ export function useDrawingTools({
     };
 
     const handleMouseMove = (opt: { e: TPointerEvent }) => {
+      if (interaction.pinching) return;
       if (erasingRef.current) {
         if (!isBusy()) eraseAt(canvas.getScenePoint(opt.e));
         return;
@@ -391,7 +408,14 @@ export function useDrawingTools({
 
     const handleMouseUp = () => {
       erasingRef.current = false;
+      if (interaction.pinching) return;
       if (previewRef.current.active) finishShape();
+    };
+
+    // A second finger means the user is zooming, not drawing.
+    interaction.cancelPreview = () => {
+      erasingRef.current = false;
+      if (previewRef.current.active) resetPreview();
     };
 
     const handlePathCreated = ({ path }: { path: FabricObject }) => {
@@ -474,6 +498,7 @@ export function useDrawingTools({
       window.removeEventListener("keydown", handleKeyDown);
       window.removeEventListener("pointerup", handleMouseUp);
       window.removeEventListener("pointerdown", handleOutsidePointer);
+      interaction.cancelPreview = undefined;
       previewRef.current = { ...EMPTY_PREVIEW };
       erasingRef.current = false;
     };

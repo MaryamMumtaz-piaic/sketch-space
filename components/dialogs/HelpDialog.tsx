@@ -21,6 +21,7 @@ const TOOL_LABELS: { key: keyof typeof TOOL_SHORTCUTS; label: string }[] = [
 const CANVAS_SHORTCUTS = [
   { keys: "Space + drag", label: "Pan the canvas" },
   { keys: "Ctrl + scroll", label: "Zoom to the pointer" },
+  { keys: "Pinch", label: "Zoom with two fingers" },
   { keys: "Scroll", label: "Pan up / down" },
   { keys: "Delete", label: "Remove the selected objects" },
   { keys: "Ctrl Z", label: "Undo" },
@@ -89,10 +90,31 @@ export function HelpDialog() {
           </div>
         </section>
 
+        <section>
+          <h3 className="mb-2 text-[10px] font-semibold uppercase tracking-widest text-muted">
+            Good to know
+          </h3>
+          <ul className="space-y-1.5 text-[11px] leading-relaxed text-foreground/80">
+            <li>
+              Draw an arrow starting and ending near a shape to bind it. Move or
+              resize the shape and the arrow follows.
+            </li>
+            <li>
+              The soft eraser only removes the part of a shape it touches. Drag
+              the brush size in the style panel to change the ring.
+            </li>
+            <li>
+              Share links keep the whole drawing inside the URL. Large boards
+              offer a <code>.json</code> download instead.
+            </li>
+          </ul>
+        </section>
+
         <p className="rounded-xl border border-line bg-background/50 p-3 text-[11px] leading-relaxed text-muted">
-          <span className="font-semibold text-foreground">Day 4 preview:</span>{" "}
-          your board autosaves in this browser, and project files plus PNG,
-          JPEG and SVG exports are live. Share links arrive next.
+          <span className="font-semibold text-foreground">Day 5 preview:</span>{" "}
+          share links, arrow binding, pinch zoom and the polished soft eraser are
+          live. Your board still autosaves locally, and project files plus PNG,
+          JPEG and SVG exports are unchanged.
         </p>
       </div>
     </Dialog>

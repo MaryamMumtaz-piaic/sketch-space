@@ -7,6 +7,7 @@ import {
   Image as ImageIcon,
   Moon,
   Save,
+  Share2,
   Sun,
   Trash,
   Upload,
@@ -28,10 +29,11 @@ import { useWhiteboardStore } from "@/stores/useWhiteboardStore";
 
 interface SidebarProps {
   onNotify: (message: string) => void;
+  onShare: () => void;
   onReset: () => void;
 }
 
-export function Sidebar({ onNotify, onReset }: SidebarProps) {
+export function Sidebar({ onNotify, onShare, onReset }: SidebarProps) {
   const open = useWhiteboardStore((state) => state.sidebarOpen);
   const setOpen = useWhiteboardStore((state) => state.setSidebarOpen);
   const setHelpOpen = useWhiteboardStore((state) => state.setHelpOpen);
@@ -183,6 +185,15 @@ export function Sidebar({ onNotify, onReset }: SidebarProps) {
               onClick={handleSaveProject}
             />
             <SidebarItem
+              icon={Share2}
+              label="Share Link"
+              description="Compressed into the URL"
+              onClick={() => {
+                setOpen(false);
+                onShare();
+              }}
+            />
+            <SidebarItem
               icon={ImageIcon}
               label="Export as Image"
               description="PNG, JPEG or SVG"
@@ -261,8 +272,8 @@ export function Sidebar({ onNotify, onReset }: SidebarProps) {
 
         <div className="border-t border-line px-4 py-3">
           <div className="flex items-center justify-between text-[10px] text-muted">
-            <span>Day 4 preview</span>
-            <span className="font-medium tabular-nums">v0.4.0</span>
+            <span>Day 5 preview</span>
+            <span className="font-medium tabular-nums">v0.5.0</span>
           </div>
         </div>
       </aside>
