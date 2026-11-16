@@ -23,7 +23,7 @@
 - 120 temporary shapes panned and zoomed smoothly, then removed (performance check).
 - Mobile 390 px: toolbar fits without overflow, no console or page errors.
 - Production build served with `next start` and tested with Playwright against real Chrome.
-- Live deploy: <https://maryam-whiteboard.vercel.app> — title, canvas, zoom, help, dark mode and mobile checked.
+- Live deploy: <https://sketchspace-whiteboard.vercel.app> — title, canvas, zoom, help, dark mode and mobile checked.
 
 ## Fixes made during Day 1
 

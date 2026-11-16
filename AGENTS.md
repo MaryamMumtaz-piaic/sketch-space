@@ -12,7 +12,7 @@ Maryam explicitly asks for an exception.
   `npm run build`, and a browser test on `npm run dev` or `next start`.
 - Deploy once, at the end, when every task is ticked and verified.
 - The Day 1 deployment already exists at
-  <https://maryam-whiteboard.vercel.app>. It is not updated again until the
+  <https://sketchspace-whiteboard.vercel.app>. It is not updated again until the
   final release.
 
 ## 2. Commit only at the end of the day

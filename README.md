@@ -6,7 +6,7 @@ SketchSpace was built over one week. **Days 1–6 are complete:** the app shell,
 
 ## Live demo
 
-**[maryam-whiteboard.vercel.app](https://maryam-whiteboard.vercel.app)**
+**[sketchspace-whiteboard.vercel.app](https://sketchspace-whiteboard.vercel.app)**
 
 ## Screenshots
 

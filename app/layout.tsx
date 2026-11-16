@@ -21,7 +21,7 @@ const patrickHand = Patrick_Hand({
   preload: false,
 });
 
-const APP_URL = "https://maryam-whiteboard.vercel.app";
+const APP_URL = "https://sketchspace-whiteboard.vercel.app";
 
 export const metadata: Metadata = {
   metadataBase: new URL(APP_URL),

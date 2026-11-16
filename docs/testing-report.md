@@ -1,10 +1,10 @@
 # Day 6 — Testing report
 
 **Dates:** 15–16 November 2026
-**Status:** Complete (live-link checks run after the final deploy)
+**Status:** Complete, including the final live-link pass
 **Build under test:** `0.6.0`, local production build (`next start`) plus the dev
 build for state-level checks
-**Live link:** <https://maryam-whiteboard.vercel.app>
+**Live link:** <https://sketchspace-whiteboard.vercel.app>
 
 ## How the testing was done
 
@@ -156,6 +156,33 @@ downloaded JSON.
 | Draw after a pinch | Ellipse after pinch + reset | Pass | Shape created normally |
 | Console on touch | Collect errors during the whole phone run | Pass | Zero errors |
 
+## Live deployment (final pass)
+
+**URL:** <https://sketchspace-whiteboard.vercel.app> — Vercel project
+`sketchspace-whiteboard`, deployed 16 November 2026.
+
+The final build was deployed once, after the local suites passed, and the same
+user journeys were repeated against the live URL.
+
+| Check area | How I tested it | Result | Notes |
+| --- | --- | --- | --- |
+| Chrome on the live link | Full journey: shortcuts, all shapes, text, zoom, undo/redo, theme, Help, PNG download, reload | Pass | 11 / 11 live checks |
+| Second browser (Edge) | Same journey on the live URL | Pass | 11 / 11 live checks |
+| Third browser (Firefox) | Same journey on the live URL | Pass | 11 / 11 live checks |
+| Fresh profile / incognito | Brand-new browser context with empty storage opened the live link, drew, then opened a share link | Pass | Same drawing restored, zero console errors |
+| Touch on the live link | 390 × 844 Chromium context with real touch events | Pass | 10 / 10 checks: layout, tool tap, draw, pan, pinch, reset |
+| Share link on the live domain | Build the link, copy it, open it in a fresh profile, save the project | Pass | Link starts with the live origin, object count matches, `#data=` cleared after load |
+| Theme on the live link | Toggle dark, reload, read the class at `DOMContentLoaded`, sample the canvas | Pass | Class already `dark` before paint, canvas `#121212` |
+| Assets | Fetch `/`, `/manifest.webmanifest`, `/icon.svg` | Pass | All 200 |
+| Console | Collected errors and page errors during every live run | Pass | Zero app errors |
+
+Live total: **52 checks** (33 browser, 10 touch, 9 deployment), all passing.
+
+The live URL was moved to a new Vercel account during the final deploy, so the
+old Day 1 deployment no longer serves this build. The README, the final report,
+the repository website field and the share links all point at
+`sketchspace-whiteboard.vercel.app`.
+
 ## Bugs found and fixed
 
 1. **One-finger pan did nothing on touch screens.** Fabric forwards raw
@@ -178,11 +205,11 @@ touch) before this report was written.
 
 ## Notes and deferrals
 
-- The Day 1 deployment is still what <https://maryam-whiteboard.vercel.app>
-  serves. Deploys are intentionally held until the whole project is finished
-  (see [`AGENTS.md`](../AGENTS.md)), so the live-link checks in
-  [`tasks.md`](./tasks.md) are the last step before release; they are repeated
-  after the final deploy.
+- Deploys were held until the whole project was finished (see
+  [`AGENTS.md`](../AGENTS.md)), so every check in this report ran on the local
+  production build first. The final Vercel deployment was then tested with the
+  same journeys; the results are in
+  [Live deployment](#live-deployment-final-pass) below.
 - Firefox occasionally prints a font-preload warning in headless automation even
   though the font is loaded (`document.fonts` reports it as `loaded`). It is a
   browser heuristic, not an app warning; the browser suite ignores only that

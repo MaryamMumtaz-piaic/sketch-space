@@ -3,9 +3,10 @@
 **Project:** SketchSpace — Real-Time Interactive Whiteboard
 **Assigned to:** Maryam Mumtaz
 **Assigned by:** Muhammad Sami
-**Day:** 06 — complete
+**Day:** 07 — complete
 **Reference:** https://excalidraw.com/
-**Status:** Days 1–6 shipped and verified; final deploy and submission next
+**Status:** Days 1–7 complete and deployed at
+<https://sketchspace-whiteboard.vercel.app>; submission handoff left
 **Working window:** 1 week (confirmed with Sami)
 
 > The original brief asks for same-day delivery. Sami has confirmed a 1-week extension. The first Vercel deployment goes live on Day 1; after that the live app is only redeployed once the whole project is finished (see `AGENTS.md`).
@@ -441,7 +442,7 @@ A short-link service (Vercel KV) was considered but **not chosen** — it adds b
 | **Day 4** | Save / Open / autosave / reset confirmation; export dialog (PNG, JPEG + SVG, background, scale) — **done** |
 | **Day 5** | Share link, theme switcher, Help dialog; bonus features: arrow binding (both ends + resize-follow), pinch zoom, soft eraser polish — **done** |
 | **Day 6** | Full manual testing on localhost and the live Vercel link; fix bugs; write `testing-report.md` - **done** |
-| **Day 7** | README, LICENSE, Discussions, docs complete; `final-report.md`; invite Sami; send both links |
+| **Day 7** | README, LICENSE, Discussions, docs complete; `final-report.md`; invite Sami; send both links — **app done, deploy live** |
 
 Vercel redeploys automatically after each push, so the live link stays current.
 

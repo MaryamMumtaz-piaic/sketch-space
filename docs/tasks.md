@@ -305,7 +305,7 @@
 ### Ship Day 5
 
 - [x] Commit: `feat: add share, theme, help and bonus features`
-- [ ] Push and test share + theme on the live link
+- [x] Push and test share + theme on the live link
 
 ---
 
@@ -316,9 +316,9 @@
 - [x] Test on Chrome (localhost)
 - [x] Test on Edge (localhost)
 - [x] Test on Firefox (localhost, if available)
-- [ ] Test the live Vercel link on Chrome
-- [ ] Test the live link in a fresh / incognito browser profile
-- [ ] Test the live Vercel link on a second browser
+- [x] Test the live Vercel link on Chrome
+- [x] Test the live link in a fresh / incognito browser profile
+- [x] Test the live Vercel link on a second browser
 - [x] Test touch on a real phone (pan, pinch zoom, draw)
 
 ### Canvas and navigation
@@ -397,7 +397,7 @@
 ### Ship Day 6
 
 - [x] Commit: `test: complete manual testing and fix bugs`
-- [ ] Push and re-test the live link
+- [x] Push and re-test the live link
 
 ---
 
@@ -415,8 +415,8 @@
 
 ### Deployment and access
 
-- [ ] Final Vercel deployment is live
-- [ ] Test the live link one last time
+- [x] Final Vercel deployment is live
+- [x] Test the live link one last time
 - [x] Invite `muhammadsami987123` as a collaborator
 - [ ] Tell Sami the invite has been sent
 
@@ -444,13 +444,13 @@
 - [x] Old or invalid project version: friendly error, no crash
 - [x] Arrow binding: move, resize and unbind all behave correctly
 - [ ] Touch: real phone pinch, pan and draw work
-- [ ] Daily deploy: the live link is current after each push
+- [x] ~~Daily deploy: the live link is current after each push~~ **replaced by one final deploy (`AGENTS.md`)**
 
 ---
 
 ## Acceptance criteria (from plan.md §12)
 
-- [ ] Fresh browser on the live link: draw, style, select, move, resize, rotate, erase, undo, redo
+- [x] Fresh browser on the live link: draw, style, select, move, resize, rotate, erase, undo, redo
 - [x] Pan and zoom are smooth; zoom is centred on the cursor and clamped to 10%–3000%
 - [x] New shapes use the Excalidraw-like default style
 - [x] Palette includes Excalidraw classic colours + custom picker
@@ -471,15 +471,15 @@
 
 ## Submission checklist (from the brief)
 
-- [ ] 1. Private GitHub repo link, with Sami added as collaborator
-- [ ] 2. Live Vercel deployment link
-- [ ] 3. `plan.md`
+- [x] 1. Private GitHub repo link, with Sami added as collaborator
+- [x] 2. Live Vercel deployment link
+- [x] 3. `plan.md`
 - [ ] 4. `tasks.md` (all boxes ticked)
-- [ ] 5. Testing report
-- [ ] 6. Final report
-- [ ] 7. Website source code in the repo
-- [ ] 8. `README.md` and `LICENSE` in the repo
-- [ ] 9. Discussions enabled on the repo
+- [x] 5. Testing report
+- [x] 6. Final report
+- [x] 7. Website source code in the repo
+- [x] 8. `README.md` and `LICENSE` in the repo
+- [x] 9. Discussions enabled on the repo
 
 ---
 
@@ -490,8 +490,15 @@ _Add bugs, blockers or decisions here as you work._
 - No blockers.
 - **Deferred on purpose:** `AGENTS.md` holds every deploy until the whole
   project is finished, so the "daily deploy" risk check was replaced by one
-  final deploy and a full live-link pass (see Day 6 notes).
+  final deploy and a full live-link pass (see the live section of
+  [`testing-report.md`](./testing-report.md)).
+- **Final deploy:** <https://sketchspace-whiteboard.vercel.app> — Vercel project
+  `sketchspace-whiteboard`, deployed on 16 November 2026 after a new Vercel
+  account was connected. The old Day 1 URL belongs to the previous account.
 - **Touch checks:** pan, pinch and draw were verified with real touch events in
   a Chromium phone viewport (390 x 844, `hasTouch`, device scale 2). A physical
   phone is the one check that still has to be done by hand; the two real-phone
   boxes stay open until then.
+- **Handoff:** the last three open boxes are Maryam's own messages — telling
+  Sami the collaborator invite was sent, sending both links with the reports,
+  and ticking the PDF submission list — plus the physical-phone check.

@@ -6,7 +6,7 @@
 **Duration:** 1 week (Days 1–7)
 **Version:** `0.6.0`
 **GitHub repository:** <https://github.com/MaryamMumtaz-piaic/sketch-space>
-**Live deployment:** <https://maryam-whiteboard.vercel.app>
+**Live deployment:** <https://sketchspace-whiteboard.vercel.app>
 
 ## Short summary
 
@@ -152,7 +152,8 @@ carry the whole drawing.
 ## Links and documents
 
 - **Repository:** <https://github.com/MaryamMumtaz-piaic/sketch-space>
-- **Live app:** <https://maryam-whiteboard.vercel.app>
+- **Live app:** <https://sketchspace-whiteboard.vercel.app> — final deploy on a
+  new Vercel account; the old Day 1 preview URL no longer serves this build
 - Plan: [`plan.md`](./plan.md)
 - Task checklist: [`tasks.md`](./tasks.md)
 - Testing report: [`testing-report.md`](./testing-report.md)
