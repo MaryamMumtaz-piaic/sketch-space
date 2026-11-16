@@ -1,21 +1,166 @@
-MIT License
+SketchSpace Light License — Version 1.0
+========================================
 
-Copyright (c) 2026 Maryam Mumtaz
+Copyright (c) 2026 Maryam Mumtaz. All rights reserved.
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+Project: SketchSpace — Light Edition
+Home:    https://github.com/MaryamMumtaz-piaic/sketch-space
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+This license lets you read, run, learn from, fork, modify and self-host
+SketchSpace. It does not let you take SketchSpace — or a modified copy of it —
+and republish it as your own project under your own name. Credit to the
+original author must always stay visible.
+
+Read sections 1–8 for the actual terms. Section 9 is a plain-language summary
+that is provided for convenience only and has no legal force.
+
+
+1. DEFINITIONS
+--------------
+
+"Software" means the SketchSpace source code, styles, assets, documentation and
+any part of them, as distributed in this repository.
+
+"Author" means Maryam Mumtaz, the copyright holder of the Software.
+
+"Modification" means any change to, addition to, or work derived from the
+Software, including a fork that contains your own edits.
+
+"You" means the individual or organisation exercising rights under this
+license.
+
+"Publish" means to make the Software or a Modification available to anyone
+outside your own private use — including uploading it to a public repository,
+hosting it at a public URL, shipping it inside a product, or listing it in a
+portfolio or profile as a project of your own.
+
+
+2. WHAT YOU MAY DO
+------------------
+
+You are granted a worldwide, royalty-free, non-exclusive license to:
+
+  a. read, study and learn from the Software;
+  b. run the Software for any purpose, including personal, educational and
+     commercial use, and self-host it on your own machine or server;
+  c. copy the Software for backup, archival or private use;
+  d. fork the repository, modify it, and run your modified version;
+  e. publish your fork or Modification — but only if you follow section 3;
+  f. quote short excerpts in articles, tutorials, talks or reviews, with a
+     link back to this repository;
+  g. submit issues and pull requests back to this repository.
+
+
+3. CONDITIONS FOR FORKS AND MODIFICATIONS
+-----------------------------------------
+
+If you fork, modify, or share the Software or a Modification with anyone, you
+must:
+
+  a. keep this license file, unchanged, in the copy;
+  b. keep the original copyright notice ("Copyright (c) 2026 Maryam Mumtaz")
+     in the source files and in the README;
+  c. give clear, visible credit in the README and in the app's About or footer
+     area, in this form:
+
+       "Based on SketchSpace by Maryam Mumtaz —
+        https://github.com/MaryamMumtaz-piaic/sketch-space"
+
+  d. state clearly which parts you changed, and mark modified files or sections
+     as modified;
+  e. license your Modification under this same license, with no additional
+     restrictions;
+  f. keep the project name "SketchSpace" for the fork, and label it as a
+     derivative work (for example: "SketchSpace — community fork"), so nobody
+     mistakes it for a separate original project;
+  g. if you publish your changes, tell the Author. Opening an issue or a pull
+     request in this repository is the easiest way to do that. This is a
+     courtesy request rather than a legal condition.
+
+
+4. WHAT YOU MAY NOT DO
+----------------------
+
+You may not:
+
+  a. claim authorship of the Software or of any substantial part of it;
+  b. remove, hide, replace or obscure the copyright notice, the author credit
+     or this license;
+  c. detach a copy from this repository and publish it as your own project —
+     for example by creating a new repository, site, app listing or portfolio
+     entry under your own name or a new brand, presented as your original work;
+  d. rebrand the Software (new name, new logo, new identity) in order to
+     present it as something you created, or to imply that it is not based on
+     SketchSpace;
+  e. use the "SketchSpace" name or logo, or the Author's name, to promote your
+     fork or any product in a way that implies endorsement, partnership or
+     official status;
+  f. sell the Software, or a Modification of it, as a standalone product where
+     the value offered is the Software itself rather than your own additions;
+     selling your own original work that merely uses the Software internally
+     is allowed;
+  g. apply technical or legal measures that restrict others from exercising the
+     rights granted by this license.
+
+
+5. NO TRADEMARK RIGHTS
+----------------------
+
+This license does not grant any right to the "SketchSpace" name, the "S" logo,
+or the Author's name or likeness, except for the truthful, factual credit
+described in section 3.
+
+
+6. CONTRIBUTIONS
+----------------
+
+If you submit a pull request, patch or suggestion to this repository, you:
+
+  a. confirm that the contribution is your own original work, or that you have
+     permission to submit it;
+  b. grant the Author a perpetual, worldwide, royalty-free license to use,
+     modify, distribute and relicense your contribution as part of the
+     Software;
+  c. understand that accepted contributions become part of the Software and are
+     covered by this license.
+
+
+7. TERMINATION
+--------------
+
+  a. This license ends automatically if you breach any of its terms.
+  b. On termination you must stop distributing the Software and delete every
+     copy and Modification you published, unless the Author confirms in
+     writing that you may keep it.
+  c. Rights granted to people who received the Software from you, and who are
+     still compliant, are not terminated by your breach.
+  d. If you believe someone is using the Software outside these terms, please
+     contact the Author first and give them a chance to fix it.
+
+
+8. DISCLAIMER AND LIABILITY
+---------------------------
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+FITNESS FOR A PARTICULAR PURPOSE, TITLE AND NON-INFRINGEMENT. IN NO EVENT
+SHALL THE AUTHOR BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
+IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+
+9. PLAIN-LANGUAGE SUMMARY (NOT BINDING)
+---------------------------------------
+
+  You can: use it, run it, learn from it, change it, fork it, host it yourself.
+
+  You must: keep the credit, keep this license, say what you changed, and do
+            not pretend you built it.
+
+  You cannot: copy it into your own profile or portfolio as your own project,
+              rename or rebrand it as yours, or remove the author's name.
+
+  If you are unsure whether your use is allowed, ask the Author first.
+
+
+Contact: https://github.com/MaryamMumtaz-piaic

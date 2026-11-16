@@ -1,7 +1,36 @@
 {
   "name": "sketch-space",
-  "version": "0.6.0",
+  "version": "1.0.0",
   "private": true,
+  "description": "SketchSpace Light — a featherweight, same-to-same Excalidraw-style infinite whiteboard. Shapes, arrows, pencil, text, dual erasers, styling, undo/redo, autosave, PNG/JPEG/SVG export and compressed share links. 100% local, no account, no backend.",
+  "keywords": [
+    "whiteboard",
+    "infinite-canvas",
+    "excalidraw",
+    "excalidraw-alternative",
+    "drawing-app",
+    "diagramming",
+    "canvas",
+    "fabricjs",
+    "nextjs",
+    "react",
+    "typescript",
+    "tailwindcss",
+    "zustand",
+    "local-first",
+    "sketch",
+    "whiteboard-app"
+  ],
+  "author": "Maryam Mumtaz (https://github.com/MaryamMumtaz-piaic)",
+  "license": "SEE LICENSE IN LICENSE",
+  "homepage": "https://sketchspace-whiteboard.vercel.app",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MaryamMumtaz-piaic/sketch-space.git"
+  },
+  "bugs": {
+    "url": "https://github.com/MaryamMumtaz-piaic/sketch-space/issues"
+  },
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build --turbopack",

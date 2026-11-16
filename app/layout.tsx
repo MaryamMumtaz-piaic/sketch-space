@@ -36,11 +36,14 @@ export const metadata: Metadata = {
   keywords: [
     "whiteboard",
     "infinite canvas",
+    "excalidraw alternative",
+    "whiteboard app",
     "sketch",
     "diagram",
-    "excalidraw",
+    "drawing tool",
+    "local-first",
     "next.js",
-    "collaboration",
+    "fabric.js",
   ],
   alternates: {
     canonical: "/",

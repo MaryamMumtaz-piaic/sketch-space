@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="380" viewBox="0 0 1280 380" role="img" aria-label="SketchSpace — Excalidraw-style infinite whiteboard, light version">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0c0c11"/>
+      <stop offset="0.55" stop-color="#111019"/>
+      <stop offset="1" stop-color="#17142a"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#6965db" stop-opacity="0.34"/>
+      <stop offset="1" stop-color="#6965db" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="tile" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#918dfa"/>
+      <stop offset="1" stop-color="#5b57d1"/>
+    </linearGradient>
+    <pattern id="dots" width="26" height="26" patternUnits="userSpaceOnUse">
+      <circle cx="1.4" cy="1.4" r="1.4" fill="#b9b4ff" fill-opacity="0.14"/>
+    </pattern>
+    <filter id="card" x="-30%" y="-30%" width="160%" height="170%">
+      <feDropShadow dx="0" dy="12" stdDeviation="16" flood-color="#000000" flood-opacity="0.55"/>
+    </filter>
+    <filter id="logoShadow" x="-40%" y="-40%" width="180%" height="200%">
+      <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#6965db" flood-opacity="0.55"/>
+    </filter>
+  </defs>
+
+  <rect width="1280" height="380" fill="url(#sky)"/>
+  <rect width="1280" height="380" fill="url(#dots)"/>
+  <ellipse cx="1110" cy="10" rx="440" ry="310" fill="url(#glow)"/>
+
+  <g fill="none" stroke="#8b87f7" stroke-opacity="0.3" stroke-width="3" stroke-linecap="round">
+    <path d="M64 318c26-22 48 6 72-12s44 10 68-10"/>
+    <path d="M1120 344c22-16 40 4 62-10s36 8 58-8"/>
+  </g>
+
+  <g filter="url(#logoShadow)">
+    <rect x="72" y="140" width="98" height="98" rx="28" fill="url(#tile)"/>
+  </g>
+  <text x="121" y="203" text-anchor="middle" font-family="Inter, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="58" font-weight="700" fill="#ffffff">S</text>
+
+  <text x="198" y="182" font-family="Inter, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="60" font-weight="700" letter-spacing="-1.6" fill="#f7f6ff">SketchSpace</text>
+  <text x="201" y="221" font-family="Inter, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="23" font-weight="500" fill="#b9b6d0">An Excalidraw-style infinite whiteboard — light version</text>
+  <text x="201" y="252" font-family="Inter, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="17" fill="#8e8ba8">Draw, style, export, share. No account. No server. Runs on your own machine.</text>
+
+  <g>
+    <rect x="200" y="276" width="196" height="34" rx="17" fill="#1b1830" stroke="#332e57"/>
+    <circle cx="220" cy="293" r="4.5" fill="#a49ffb"/>
+    <text x="234" y="298" font-family="Inter, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="14" font-weight="600" fill="#b4b0ff">Light · local-first · 100% yours</text>
+  </g>
+
+  <g filter="url(#card)">
+    <rect x="856" y="86" width="352" height="208" rx="22" fill="#16141f" stroke="#2b2740"/>
+  </g>
+  <g>
+    <circle cx="882" cy="112" r="4" fill="#6b4a48"/>
+    <circle cx="896" cy="112" r="4" fill="#6b5a3a"/>
+    <circle cx="910" cy="112" r="4" fill="#3c5b46"/>
+    <rect x="868" y="126" width="328" height="1.5" rx="0.75" fill="#262238"/>
+
+    <rect x="894" y="166" width="86" height="60" rx="4" fill="#6b5c22" stroke="#e9e7f6" stroke-width="2.5"/>
+    <ellipse cx="1052" cy="196" rx="48" ry="42" fill="#2c4a63" stroke="#e9e7f6" stroke-width="2.5"/>
+    <path d="M1148 158l34 38-34 38-34-38z" fill="#3f3268" stroke="#e9e7f6" stroke-width="2.5" stroke-linejoin="round"/>
+    <path d="M980 196h18" stroke="#e9e7f6" stroke-width="2.5" stroke-dasharray="6 4"/>
+    <path d="M998 196l-8-5v10z" fill="#e9e7f6"/>
+    <path d="M994 148c14-10 22 8 36 0s22 8 36 0" fill="none" stroke="#e9e7f6" stroke-width="2.5" stroke-linecap="round"/>
+    <rect x="1040" y="246" width="88" height="26" rx="13" fill="#6965db"/>
+    <path d="M1054 259h60" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round"/>
+    <path d="M1058 259l-4 3.5 4 3.5" fill="none" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+</svg>

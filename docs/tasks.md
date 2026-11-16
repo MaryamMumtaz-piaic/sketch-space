@@ -406,7 +406,7 @@
 ### Repository files
 
 - [x] `README.md` with name, description, screenshots, live demo link, features, tech stack, how to run locally and folder structure
-- [x] `LICENSE` — MIT
+- [x] `LICENSE` — SketchSpace Light License 1.0 (source-available, credit required)
 - [x] Enable Discussions and post one welcome discussion
 - [x] Repo description, topics (tags) and website link = Vercel URL
 - [x] Confirm the repository is **private**
@@ -474,7 +474,7 @@
 - [x] 1. Private GitHub repo link, with Sami added as collaborator
 - [x] 2. Live Vercel deployment link
 - [x] 3. `plan.md`
-- [ ] 4. `tasks.md` (all boxes ticked)
+- [x] 4. `tasks.md` (all boxes ticked)
 - [x] 5. Testing report
 - [x] 6. Final report
 - [x] 7. Website source code in the repo
