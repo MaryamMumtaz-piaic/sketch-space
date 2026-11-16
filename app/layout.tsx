@@ -17,6 +17,8 @@ const patrickHand = Patrick_Hand({
   weight: "400",
   variable: "--font-patrick-hand",
   display: "swap",
+  // Only needed once a text label exists, so do not preload it on first paint.
+  preload: false,
 });
 
 const APP_URL = "https://maryam-whiteboard.vercel.app";

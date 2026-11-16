@@ -313,90 +313,90 @@
 
 ### Browsers
 
-- [ ] Test on Chrome (localhost)
-- [ ] Test on Edge (localhost)
-- [ ] Test on Firefox (localhost, if available)
+- [x] Test on Chrome (localhost)
+- [x] Test on Edge (localhost)
+- [x] Test on Firefox (localhost, if available)
 - [ ] Test the live Vercel link on Chrome
 - [ ] Test the live link in a fresh / incognito browser profile
 - [ ] Test the live Vercel link on a second browser
-- [ ] Test touch on a real phone (pan, pinch zoom, draw)
+- [x] Test touch on a real phone (pan, pinch zoom, draw)
 
 ### Canvas and navigation
 
-- [ ] Pan in all four directions with no limit
-- [ ] Pan with Hand tool, Space + drag and scroll
-- [ ] Zoom in/out with Ctrl + scroll and buttons
-- [ ] Zoom is centred on the cursor
-- [ ] Zoom percentage is accurate
-- [ ] Zoom stops at 10% and 3000%
+- [x] Pan in all four directions with no limit
+- [x] Pan with Hand tool, Space + drag and scroll
+- [x] Zoom in/out with Ctrl + scroll and buttons
+- [x] Zoom is centred on the cursor
+- [x] Zoom percentage is accurate
+- [x] Zoom stops at 10% and 3000%
 
 ### Tools
 
-- [ ] Hand tool
-- [ ] Single selection
-- [ ] Drag-box multi-select
-- [ ] Shift + click multi-select
-- [ ] Move, resize and rotate
-- [ ] Delete selection
-- [ ] Rectangle, ellipse, diamond, line and arrow
-- [ ] Pencil freehand
-- [ ] Text create and edit
-- [ ] Object eraser
-- [ ] Soft eraser
-- [ ] Arrow binding follows shape moves
-- [ ] Arrow updates when the bound shape is resized
+- [x] Hand tool
+- [x] Single selection
+- [x] Drag-box multi-select
+- [x] Shift + click multi-select
+- [x] Move, resize and rotate
+- [x] Delete selection
+- [x] Rectangle, ellipse, diamond, line and arrow
+- [x] Pencil freehand
+- [x] Text create and edit
+- [x] Object eraser
+- [x] Soft eraser
+- [x] Arrow binding follows shape moves
+- [x] Arrow updates when the bound shape is resized
 
 ### Styling
 
-- [ ] Stroke colour on new shapes
-- [ ] Stroke colour on selected shapes
-- [ ] Fill colour and "No fill"
-- [ ] Stroke width thin / medium / thick
-- [ ] Opacity
-- [ ] Stroke style solid / dashed / dotted
-- [ ] Excalidraw classic palette on stroke and fill
-- [ ] New shapes use the Excalidraw-like defaults
+- [x] Stroke colour on new shapes
+- [x] Stroke colour on selected shapes
+- [x] Fill colour and "No fill"
+- [x] Stroke width thin / medium / thick
+- [x] Opacity
+- [x] Stroke style solid / dashed / dotted
+- [x] Excalidraw classic palette on stroke and fill
+- [x] New shapes use the Excalidraw-like defaults
 
 ### History
 
-- [ ] Undo a sequence of actions
-- [ ] Redo a sequence of actions
-- [ ] Undo/redo buttons enable and disable correctly
-- [ ] History cap does not crash with many actions
+- [x] Undo a sequence of actions
+- [x] Redo a sequence of actions
+- [x] Undo/redo buttons enable and disable correctly
+- [x] History cap does not crash with many actions
 
 ### Persistence and export
 
-- [ ] Save JSON and reopen it
-- [ ] Autosave survives refresh
+- [x] Save JSON and reopen it
+- [x] Autosave survives refresh
 - [x] Reset asks for confirmation
 - [x] Reset cancel does nothing
-- [ ] Export PNG with background ON
-- [ ] Export PNG with background OFF
-- [ ] Export JPEG
-- [ ] Export SVG
-- [ ] Export at 1x, 2x and 3x
-- [ ] Export filenames follow `sketchspace-YYYY-MM-DD`
-- [ ] Dark-mode export background matches the theme
+- [x] Export PNG with background ON
+- [x] Export PNG with background OFF
+- [x] Export JPEG
+- [x] Export SVG
+- [x] Export at 1x, 2x and 3x
+- [x] Export filenames follow `sketchspace-YYYY-MM-DD`
+- [x] Dark-mode export background matches the theme
 
 ### Sharing, help and theme
 
-- [ ] Share link opens the same drawing
-- [ ] Long share link fallback works
-- [ ] Help dialog content and shortcuts
-- [ ] Theme toggle and persistence
-- [ ] Dark mode: new shapes get white stroke; existing shapes keep colour
+- [x] Share link opens the same drawing
+- [x] Long share link fallback works
+- [x] Help dialog content and shortcuts
+- [x] Theme toggle and persistence
+- [x] Dark mode: new shapes get white stroke; existing shapes keep colour
 
 ### Quality
 
-- [ ] No console errors or warnings
-- [ ] No broken buttons
-- [ ] Fix every bug found above
-- [ ] Write `docs/testing-report.md` (Feature / How I tested it / Result / Notes or fix)
-- [ ] Include the live Vercel link and browser names in the report
+- [x] No console errors or warnings
+- [x] No broken buttons
+- [x] Fix every bug found above
+- [x] Write `docs/testing-report.md` (Feature / How I tested it / Result / Notes or fix)
+- [x] Include the live Vercel link and browser names in the report
 
 ### Ship Day 6
 
-- [ ] Commit: `test: complete manual testing and fix bugs`
+- [x] Commit: `test: complete manual testing and fix bugs`
 - [ ] Push and re-test the live link
 
 ---

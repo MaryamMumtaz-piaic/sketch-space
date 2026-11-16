@@ -272,8 +272,8 @@ export function Sidebar({ onNotify, onShare, onReset }: SidebarProps) {
 
         <div className="border-t border-line px-4 py-3">
           <div className="flex items-center justify-between text-[10px] text-muted">
-            <span>Day 5 preview</span>
-            <span className="font-medium tabular-nums">v0.5.0</span>
+            <span>All features live</span>
+            <span className="font-medium tabular-nums">v0.6.0</span>
           </div>
         </div>
       </aside>

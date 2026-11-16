@@ -22,13 +22,18 @@ type PointerLike = {
   clientY?: number;
   button?: number;
   preventDefault?: () => void;
+  changedTouches?: ArrayLike<{ clientX: number; clientY: number }>;
+  touches?: ArrayLike<{ clientX: number; clientY: number }>;
 };
 
 function clientPoint(event: unknown) {
   const e = event as PointerLike;
+  // Fabric forwards raw TouchEvents for touch input; those carry the position
+  // on the touch lists rather than on the event itself.
+  const touch = e.changedTouches?.[0] ?? e.touches?.[0];
   return {
-    x: e.clientX ?? 0,
-    y: e.clientY ?? 0,
+    x: e.clientX ?? touch?.clientX ?? 0,
+    y: e.clientY ?? touch?.clientY ?? 0,
     button: e.button ?? 0,
     preventDefault: () => e.preventDefault?.(),
   };

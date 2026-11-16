@@ -111,10 +111,10 @@ export function HelpDialog() {
         </section>
 
         <p className="rounded-xl border border-line bg-background/50 p-3 text-[11px] leading-relaxed text-muted">
-          <span className="font-semibold text-foreground">Day 5 preview:</span>{" "}
+          <span className="font-semibold text-foreground">Final build:</span>{" "}
           share links, arrow binding, pinch zoom and the polished soft eraser are
-          live. Your board still autosaves locally, and project files plus PNG,
-          JPEG and SVG exports are unchanged.
+          all live. Your board autosaves locally, and project files plus PNG,
+          JPEG and SVG exports are ready to download.
         </p>
       </div>
     </Dialog>

@@ -2,7 +2,7 @@
 
 A fast, Excalidraw-style infinite whiteboard built with **Next.js 15**, **TypeScript**, **Tailwind CSS**, **Fabric.js**, **Zustand** and **next-themes**.
 
-SketchSpace is being built over one week. **Days 1–5 are complete:** the app shell, theme system, infinite canvas, the full drawing toolset, selection styling, both erasers, undo/redo, project saving, autosave, PNG / JPEG / SVG export, compressed share links, arrow binding and pinch zoom are live. Testing and the final polish round follow next.
+SketchSpace was built over one week. **Days 1–6 are complete:** the app shell, theme system, infinite canvas, the full drawing toolset, selection styling, both erasers, undo/redo, project saving, autosave, PNG / JPEG / SVG export, compressed share links, arrow binding and pinch zoom are live, and the manual testing pass finished with **126 passing checks** across Chrome, Edge, Firefox and a touch viewport. See the [testing report](docs/testing-report.md).
 
 ## Live demo
 
@@ -163,6 +163,8 @@ docs/                    plan, tasks and reports
 - [Day 3 summary](docs/day-3.md)
 - [Day 4 summary](docs/day-4.md)
 - [Day 5 summary](docs/day-5.md)
+- [Day 6 testing report](docs/testing-report.md)
+- [Day 6 testing report](docs/testing-report.md)
 - [Project plan](docs/plan.md)
 - [Task checklist](docs/tasks.md)
 - [Study notes](docs/notes.md)
