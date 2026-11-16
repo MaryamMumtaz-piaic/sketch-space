@@ -405,13 +405,13 @@
 
 ### Repository files
 
-- [ ] `README.md` with name, description, screenshots, live demo link, features, tech stack, how to run locally and folder structure
+- [x] `README.md` with name, description, screenshots, live demo link, features, tech stack, how to run locally and folder structure
 - [x] `LICENSE` — MIT
 - [x] Enable Discussions and post one welcome discussion
-- [ ] Repo description, topics (tags) and website link = Vercel URL
+- [x] Repo description, topics (tags) and website link = Vercel URL
 - [x] Confirm the repository is **private**
-- [ ] Confirm `docs/` has `plan.md`, `tasks.md`, `testing-report.md`, `final-report.md`
-- [ ] Review commit history for small, clear messages
+- [x] Confirm `docs/` has `plan.md`, `tasks.md`, `testing-report.md`, `final-report.md`
+- [x] Review commit history for small, clear messages
 
 ### Deployment and access
 
@@ -422,27 +422,27 @@
 
 ### Final report
 
-- [ ] Write `docs/final-report.md`:
-  - [ ] Short summary of what was built
-  - [ ] Completed features and anything not completed (with reasons)
-  - [ ] Tools used and why
-  - [ ] Problems faced and how they were solved
-  - [ ] What was learned and what to improve with more time
-  - [ ] Both links: GitHub repo and Vercel deployment
+- [x] Write `docs/final-report.md`:
+  - [x] Short summary of what was built
+  - [x] Completed features and anything not completed (with reasons)
+  - [x] Tools used and why
+  - [x] Problems faced and how they were solved
+  - [x] What was learned and what to improve with more time
+  - [x] Both links: GitHub repo and Vercel deployment
 - [ ] Send both links and all reports to Sami
 
 ---
 
 ## Risk checks (from plan.md §7)
 
-- [ ] SSR: production build and live page load without `window is not defined`
-- [ ] Performance: 200+ objects stay smooth while panning and zooming
-- [ ] History memory: 100+ actions keep the app responsive and the stack capped
-- [ ] `localStorage` quota: full storage is handled with a warning, not a crash
-- [ ] Share URL too long: fallback message and JSON download work
-- [ ] Theme flash: hard reload in dark mode shows no white flash
-- [ ] Old or invalid project version: friendly error, no crash
-- [ ] Arrow binding: move, resize and unbind all behave correctly
+- [x] SSR: production build and live page load without `window is not defined`
+- [x] Performance: 200+ objects stay smooth while panning and zooming
+- [x] History memory: 100+ actions keep the app responsive and the stack capped
+- [x] `localStorage` quota: full storage is handled with a warning, not a crash
+- [x] Share URL too long: fallback message and JSON download work
+- [x] Theme flash: hard reload in dark mode shows no white flash
+- [x] Old or invalid project version: friendly error, no crash
+- [x] Arrow binding: move, resize and unbind all behave correctly
 - [ ] Touch: real phone pinch, pan and draw work
 - [ ] Daily deploy: the live link is current after each push
 
@@ -451,20 +451,20 @@
 ## Acceptance criteria (from plan.md §12)
 
 - [ ] Fresh browser on the live link: draw, style, select, move, resize, rotate, erase, undo, redo
-- [ ] Pan and zoom are smooth; zoom is centred on the cursor and clamped to 10%–3000%
-- [ ] New shapes use the Excalidraw-like default style
-- [ ] Palette includes Excalidraw classic colours + custom picker
-- [ ] Dark mode new shapes use white stroke; existing shapes keep colour
-- [ ] Export filenames follow `sketchspace-YYYY-MM-DD` and theme background
-- [ ] Save the file, refresh, and autosave restores the drawing
-- [ ] Open the saved file and see the same drawing
-- [ ] Export PNG, JPEG and SVG with and without background at 1x / 2x / 3x
-- [ ] Share link opens the same drawing in a new tab
-- [ ] Dark mode persists after refresh with no flash
+- [x] Pan and zoom are smooth; zoom is centred on the cursor and clamped to 10%–3000%
+- [x] New shapes use the Excalidraw-like default style
+- [x] Palette includes Excalidraw classic colours + custom picker
+- [x] Dark mode new shapes use white stroke; existing shapes keep colour
+- [x] Export filenames follow `sketchspace-YYYY-MM-DD` and theme background
+- [x] Save the file, refresh, and autosave restores the drawing
+- [x] Open the saved file and see the same drawing
+- [x] Export PNG, JPEG and SVG with and without background at 1x / 2x / 3x
+- [x] Share link opens the same drawing in a new tab
+- [x] Dark mode persists after refresh with no flash
 - [x] Reset asks for confirmation first
 - [x] Help lists all keyboard shortcuts
 - [ ] Real phone: pan, pinch zoom and draw work
-- [ ] No console errors
+- [x] No console errors
 - [ ] All PDF submission items ticked
 
 ---
@@ -487,4 +487,11 @@
 
 _Add bugs, blockers or decisions here as you work._
 
-- No blockers yet.
+- No blockers.
+- **Deferred on purpose:** `AGENTS.md` holds every deploy until the whole
+  project is finished, so the "daily deploy" risk check was replaced by one
+  final deploy and a full live-link pass (see Day 6 notes).
+- **Touch checks:** pan, pinch and draw were verified with real touch events in
+  a Chromium phone viewport (390 x 844, `hasTouch`, device scale 2). A physical
+  phone is the one check that still has to be done by hand; the two real-phone
+  boxes stay open until then.

@@ -8,6 +8,14 @@ SketchSpace was built over one week. **Days 1–6 are complete:** the app shell,
 
 **[maryam-whiteboard.vercel.app](https://maryam-whiteboard.vercel.app)**
 
+## Screenshots
+
+| Light theme | Dark theme |
+| --- | --- |
+| ![Light theme with the style panel open](docs/screenshots/light.png) | ![Dark theme with the style panel open](docs/screenshots/dark.png) |
+
+![Phone layout](docs/screenshots/mobile.png)
+
 ## Features so far
 
 ### Canvas and app shell
@@ -72,10 +80,13 @@ SketchSpace was built over one week. **Days 1–6 are complete:** the app shell,
 - Soft eraser with three brush sizes and a ring cursor that matches the brush
 - "Pick a tool and start drawing" hint on an empty board
 
-## Planned features
+## Not included (by decision)
 
-- Testing pass across Chrome, Edge and Firefox
-- Final docs, license and release deploy
+- Real-time collaboration or a server — the brief asks for a local whiteboard
+- Image upload, shape libraries, frames or a laser pointer
+- Rough.js hand-drawn wobble — the brief asked for clean geometric shapes
+- A fully responsive mobile layout — desktop-first, but touch pan / pinch / draw works
+- Short share links — links carry the whole drawing, with a JSON fallback when the URL is too long
 
 ## Tech stack
 
@@ -163,7 +174,6 @@ docs/                    plan, tasks and reports
 - [Day 3 summary](docs/day-3.md)
 - [Day 4 summary](docs/day-4.md)
 - [Day 5 summary](docs/day-5.md)
-- [Day 6 testing report](docs/testing-report.md)
 - [Day 6 testing report](docs/testing-report.md)
 - [Project plan](docs/plan.md)
 - [Task checklist](docs/tasks.md)
