@@ -2,11 +2,14 @@
 
 A fast, Excalidraw-style infinite whiteboard built with **Next.js 15**, **TypeScript**, **Tailwind CSS**, **Fabric.js**, **Zustand** and **next-themes**.
 
-SketchSpace was built over one week. **Days 1–6 are complete:** the app shell, theme system, infinite canvas, the full drawing toolset, selection styling, both erasers, undo/redo, project saving, autosave, PNG / JPEG / SVG export, compressed share links, arrow binding and pinch zoom are live, and the manual testing pass finished with **126 passing checks** across Chrome, Edge, Firefox and a touch viewport. See the [testing report](docs/testing-report.md).
+SketchSpace is complete. **Days 1–7 are done and the final build is deployed:** the app shell, theme system, infinite canvas, the full drawing toolset, selection styling, both erasers, undo/redo, project saving, autosave, PNG / JPEG / SVG export, compressed share links, arrow binding and pinch zoom are live. The manual testing pass finished with **178 passing checks** — 126 on the local dev and production builds plus 52 on the live deployment — across Chrome, Edge, Firefox and a touch viewport. See the [testing report](docs/testing-report.md) and the [final report](docs/final-report.md).
 
 ## Live demo
 
 **[sketchspace-whiteboard.vercel.app](https://sketchspace-whiteboard.vercel.app)**
+
+Deployed on Vercel from the new account; the build is the same one tested in
+[`docs/testing-report.md`](docs/testing-report.md).
 
 ## Screenshots
 
@@ -16,7 +19,7 @@ SketchSpace was built over one week. **Days 1–6 are complete:** the app shell,
 
 ![Phone layout](docs/screenshots/mobile.png)
 
-## Features so far
+## Features
 
 ### Canvas and app shell
 
